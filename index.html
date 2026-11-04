@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vincent Lancin | GoHighLevel Specialist & Automation Expert</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif'],
+                        'space': ['Space Grotesk', 'sans-serif'],
+                    },
+                    colors: {
+                        'neon-blue': '#00d4ff',
+                        'neon-purple': '#8b5cf6',
+                        'neon-pink': '#f472b6',
+                        'cyber-dark': '#0a0a0a',
+                        'cyber-gray': '#1a1a1a',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Dynamic Schedule Button Styles -->
+    <style>
+        /* Modern Dynamic Button Animations */
+        #schedule-now-btn {
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            border: none;
+            box-shadow: 
+                0 0 20px rgba(0, 212, 255, 0.3),
+                0 0 40px rgba(139, 92, 246, 0.2),
+                0 0 60px rgba(244, 114, 182, 0.1);
+        }
+        
+        #schedule-now-btn:hover {
+            box-shadow: 
+                0 0 30px rgba(0, 212, 255, 0.5),
+                0 0 60px rgba(139, 92, 246, 0.4),
+                0 0 90px rgba(244, 114, 182, 0.3);
+        }
+        
+        /* Button glow effect */
+        @keyframes glow {
+            0%, 100% { 
+                box-shadow: 
+                    0 0 20px rgba(0, 212, 255, 0.3),
+                    0 0 40px rgba(139, 92, 246, 0.2);
+            }
+            50% { 
+                box-shadow: 
+                    0 0 40px rgba(0, 212, 255, 0.6),
+                    0 0 60px rgba(139, 92, 246, 0.4),
+                    0 0 80px rgba(244, 114, 182, 0.2);
+            }
+        }
+        
+        #schedule-now-btn {
+            animation: glow 2s ease-in-out infinite;
+        }
+        
+        /* Hover state removes the pulse animation */
+        #schedule-now-btn:hover {
+            animation: none;
+        }
+        
+        /* Responsive button adjustments */
+        @media (max-width: 768px) {
+            #schedule-now-btn {
+                padding: 1rem 2rem;
+                font-size: 1.125rem;
+            }
+        }
+        
+        /* Enhanced transition effects */
+        #schedule-now-btn * {
+            transition: all 0.3s ease-in-out;
+        }
+        
+        /* Click animation */
+        #schedule-now-btn:active {
+            transform: scale(0.95);
+        }
+    </style>
+</head>
+<body class="bg-cyber-dark text-white font-inter">
+    
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="fixed inset-0 bg-cyber-dark z-50 flex items-center justify-center">
+        <div class="text-center">
+            <div class="animate-pulse text-4xl font-space font-bold text-neon-blue mb-4">Loading...</div>
+            <div class="w-64 h-2 bg-gray-800 rounded-full overflow-hidden">
+                <div class="h-full bg-gradient-to-r from-neon-blue via-neon-purple to-neon-pink animate-pulse"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-40 bg-cyber-dark/80 backdrop-blur-lg border-b border-neon-blue/20">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="text-2xl font-space font-bold">
+                    <span class="text-neon-blue">Vincent</span><span class="text-white">Lancin</span>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#home" class="nav-link text-white hover:text-neon-blue transition-colors duration-300">Home</a>
+                    <a href="about.html" class="nav-link text-white hover:text-neon-blue transition-colors duration-300">About</a>
+                    <a href="services.html" class="nav-link text-white hover:text-neon-blue transition-colors duration-300">Services</a>
+                    <a href="portfolio.html" class="nav-link text-white hover:text-neon-blue transition-colors duration-300">Portfolio</a>
+                    <a href="portfolio.html#skills" class="nav-link text-white hover:text-neon-blue transition-colors duration-300">Skills</a>
+                    <a href="contact.html" class="nav-link text-white hover:text-neon-blue transition-colors duration-300">Contact</a>
+                    <!-- Theme Toggle -->
+                    <button id="theme-toggle" class="ml-4 p-2 rounded-lg bg-cyber-gray hover:bg-neon-blue/20 transition-all duration-300 border border-neon-blue/30">
+                        <i id="theme-icon" class="fas fa-sun text-neon-blue"></i>
+                    </button>
+                </div>
+                
+                <!-- Mobile Menu Button & Theme Toggle -->
+                <div class="md:hidden flex items-center space-x-3">
+                    <button id="theme-toggle-mobile" class="p-2 rounded-lg bg-cyber-gray hover:bg-neon-blue/20 transition-all duration-300 border border-neon-blue/30">
+                        <i id="theme-icon-mobile" class="fas fa-sun text-neon-blue"></i>
+                    </button>
+                    <button id="mobile-menu-btn" class="text-white">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="hidden md:hidden mt-4 pb-4">
+                <div class="flex flex-col space-y-4">
+                    <a href="#home" class="text-white hover:text-neon-blue transition-colors duration-300">Home</a>
+                    <a href="about.html" class="text-white hover:text-neon-blue transition-colors duration-300">About</a>
+                    <a href="services.html" class="text-white hover:text-neon-blue transition-colors duration-300">Services</a>
+                    <a href="portfolio.html" class="text-white hover:text-neon-blue transition-colors duration-300">Portfolio</a>
+                    <a href="portfolio.html#skills" class="text-white hover:text-neon-blue transition-colors duration-300">Skills</a>
+                    <a href="contact.html" class="text-white hover:text-neon-blue transition-colors duration-300">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
+        <!-- Animated Background -->
+        <div class="absolute inset-0 opacity-20">
+            <div class="cyber-grid"></div>
+        </div>
+        
+        <!-- Floating Elements -->
+        <div class="floating-elements">
+            <div class="floating-element" style="top: 20%; left: 10%; animation-delay: 0s;"></div>
+            <div class="floating-element" style="top: 60%; left: 80%; animation-delay: 2s;"></div>
+            <div class="floating-element" style="top: 80%; left: 20%; animation-delay: 4s;"></div>
+        </div>
+
+        <div class="container mx-auto px-6 text-center z-10 max-w-6xl">
+            <div class="mb-8">
+                <div class="inline-block p-1 rounded-full bg-gradient-to-r from-neon-blue via-neon-purple to-neon-pink">
+                    <div class="bg-cyber-dark rounded-full px-6 py-3">
+                        <span class="text-sm font-medium">🚀 Available for New Projects</span>
+                    </div>
+                </div>
+            </div>
+            
+            <h1 class="text-5xl md:text-7xl font-space font-bold mb-6">
+                <span class="text-gradient bg-gradient-to-r from-neon-blue via-neon-purple to-neon-pink bg-clip-text text-transparent">
+                    GoHighLevel Expert
+                </span>
+                <br>
+                <span class="text-gradient bg-gradient-to-r from-neon-purple via-neon-pink to-neon-blue bg-clip-text text-transparent">
+                    Automation Specialist
+                </span>
+            </h1>
+            
+            <p class="text-xl md:text-2xl text-gray-300 mb-12 max-w-4xl mx-auto leading-relaxed">
+                Specializing in Landing Pages, Funnels, Automation & Workflows. 
+                <br>I help businesses streamline operations with <span class="text-neon-blue font-semibold">Zapier</span>, 
+                <span class="text-neon-purple font-semibold">Make</span>, and 
+                <span class="text-neon-pink font-semibold">n8n</span> integrations.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-20">
+                <a href="portfolio.html" class="cyber-button bg-gradient-to-r from-neon-blue to-neon-purple hover:from-neon-purple hover:to-neon-pink transition-all duration-300 px-8 py-4 rounded-full text-white font-semibold text-lg">
+                    View My Work
+                </a>
+                <a href="contact.html" class="cyber-button-outline border-2 border-neon-blue hover:border-neon-purple transition-colors duration-300 px-8 py-4 rounded-full text-white font-semibold text-lg">
+                    Get In Touch
+                </a>
+            </div>
+            
+            <!-- Stats Section -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-neon-blue counter" data-count="150">0</div>
+                    <div class="text-gray-400 text-sm mt-2">Projects Completed</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-neon-purple counter" data-count="50">0</div>
+                    <div class="text-gray-400 text-sm mt-2">Funnels Built</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-neon-pink counter" data-count="200">0</div>
+                    <div class="text-gray-400 text-sm mt-2">Automations Created</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-neon-blue counter" data-count="95">0</div>
+                    <div class="text-gray-400 text-sm mt-2">Client Satisfaction %</div>
+                </div>
+            </div>
+        </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <div class="w-6 h-10 border-2 border-neon-blue rounded-full flex justify-center">
+                <div class="w-1 h-3 bg-neon-blue rounded-full mt-2 animate-pulse"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Services Section -->
+    <section class="py-20 bg-cyber-gray/50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-space font-bold mb-6">
+                    <span class="text-gradient bg-gradient-to-r from-neon-blue to-neon-purple bg-clip-text text-transparent">
+                        Core Expertise
+                    </span>
+                </h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                    Specializing in cutting-edge automation and funnel optimization technologies
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- GoHighLevel Card -->
+                <div class="service-card bg-cyber-gray border border-neon-blue/20 rounded-xl p-8 hover:border-neon-blue/60 transition-all duration-300">
+                    <div class="w-16 h-16 mb-4 mx-auto bg-white rounded-lg flex items-center justify-center logo-container">
+                        <img src="https://www.fahimai.com/wp-content/uploads/2024/09/CTA-38.png" alt="GoHighLevel" class="w-12 h-12 object-contain platform-logo" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'text-4xl text-neon-blue\'><i class=\'fas fa-rocket\'></i></div>'">
+                    </div>
+                    <h3 class="text-2xl font-space font-bold mb-4 text-neon-blue">GoHighLevel</h3>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><i class="fas fa-check text-neon-blue mr-2"></i>Landing Page Builder</li>
+                        <li><i class="fas fa-check text-neon-blue mr-2"></i>Funnel Builder</li>
+                        <li><i class="fas fa-check text-neon-blue mr-2"></i>CRM Setup & Optimization</li>
+                        <li><i class="fas fa-check text-neon-blue mr-2"></i>Workflow Automation</li>
+                    </ul>
+                </div>
+
+                <!-- Zapier Card -->
+                <div class="service-card bg-cyber-gray border border-neon-purple/20 rounded-xl p-8 hover:border-neon-purple/60 transition-all duration-300">
+                    <div class="w-16 h-16 mb-4 mx-auto bg-white rounded-lg flex items-center justify-center logo-container">
+                        <img src="https://vectorseek.com/wp-content/uploads/2023/04/Zapier-Logo-Vector.jpg" alt="Zapier" class="w-12 h-12 object-contain platform-logo" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'text-4xl text-neon-purple\'><i class=\'fas fa-link\'></i></div>'">
+                    </div>
+                    <h3 class="text-2xl font-space font-bold mb-4 text-neon-purple">Zapier</h3>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><i class="fas fa-check text-neon-purple mr-2"></i>App Integrations</li>
+                        <li><i class="fas fa-check text-neon-purple mr-2"></i>Complex Workflows</li>
+                        <li><i class="fas fa-check text-neon-purple mr-2"></i>Data Synchronization</li>
+                        <li><i class="fas fa-check text-neon-purple mr-2"></i>Trigger Optimization</li>
+                    </ul>
+                </div>
+
+                <!-- Make (Integromat) Card -->
+                <div class="service-card bg-cyber-gray border border-neon-pink/20 rounded-xl p-8 hover:border-neon-pink/60 transition-all duration-300">
+                    <div class="w-16 h-16 mb-4 mx-auto bg-white rounded-lg flex items-center justify-center logo-container">
+                        <img src="https://images.seeklogo.com/logo-png/46/1/make-logo-png_seeklogo-464017.png" alt="Make" class="w-12 h-12 object-contain platform-logo" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'text-4xl text-neon-pink\'><i class=\'fas fa-cogs\'></i></div>'">
+                    </div>
+                    <h3 class="text-2xl font-space font-bold mb-4 text-neon-pink">Make (Integromat)</h3>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><i class="fas fa-check text-neon-pink mr-2"></i>Advanced Scenarios</li>
+                        <li><i class="fas fa-check text-neon-pink mr-2"></i>Error Handling</li>
+                        <li><i class="fas fa-check text-neon-pink mr-2"></i>Data Processing</li>
+                        <li><i class="fas fa-check text-neon-pink mr-2"></i>API Connections</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="text-center mt-12">
+                <a href="services.html" class="cyber-button bg-gradient-to-r from-neon-blue to-neon-purple hover:from-neon-purple hover:to-neon-pink transition-all duration-300 px-8 py-4 rounded-full text-white font-semibold text-lg">
+                    View All Services
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-gradient-to-r from-neon-blue/10 via-neon-purple/10 to-neon-pink/10">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-4xl md:text-5xl font-space font-bold mb-6">
+                Ready to <span class="text-gradient bg-gradient-to-r from-neon-blue to-neon-purple bg-clip-text text-transparent">Automate</span> Your Business?
+            </h2>
+            <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+                Let's discuss how I can help streamline your processes and boost your conversions with cutting-edge automation solutions.
+            </p>
+            <button id="schedule-now-btn" class="group relative bg-gradient-to-r from-neon-blue via-neon-purple to-neon-pink hover:from-neon-pink hover:via-neon-purple hover:to-neon-blue transition-all duration-500 px-10 py-5 rounded-2xl text-white font-bold text-xl inline-flex items-center gap-4 transform hover:scale-105 hover:shadow-2xl hover:shadow-neon-blue/30 animate-pulse">
+                <div class="absolute inset-0 bg-gradient-to-r from-neon-blue via-neon-purple to-neon-pink rounded-2xl blur opacity-75 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div class="relative flex items-center gap-4">
+                    <i class="fas fa-calendar-plus text-2xl group-hover:rotate-12 transition-transform duration-300"></i>
+                    <span class="group-hover:tracking-wider transition-all duration-300">Schedule Now</span>
+                    <div class="w-2 h-2 bg-white rounded-full group-hover:w-4 group-hover:h-4 transition-all duration-300"></div>
+                </div>
+            </button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-cyber-dark border-t border-neon-blue/20 py-12">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <div class="text-2xl font-space font-bold mb-4">
+                        <span class="text-neon-blue">Vincent</span><span class="text-white">Lancin</span>
+                    </div>
+                    <p class="text-gray-400">
+                        Transforming businesses through intelligent automation and high-converting funnels.
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4 text-neon-blue">Quick Links</h4>
+                    <div class="space-y-2">
+                        <a href="about.html" class="block text-gray-400 hover:text-neon-blue transition-colors">About</a>
+                        <a href="services.html" class="block text-gray-400 hover:text-neon-blue transition-colors">Services</a>
+                        <a href="portfolio.html" class="block text-gray-400 hover:text-neon-blue transition-colors">Portfolio</a>
+                        <a href="contact.html" class="block text-gray-400 hover:text-neon-blue transition-colors">Contact</a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4 text-neon-purple">Connect</h4>
+                    <div class="flex space-x-4">
+                        <a href="https://linkedin.com/in/vincentlancin" target="_blank" class="text-gray-400 hover:text-neon-blue transition-colors text-xl">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="mailto:virtualtechvincent@gmail.com" class="text-gray-400 hover:text-neon-blue transition-colors text-xl">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 Vincent Lancin. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+    
+    <!-- Schedule Now Button JavaScript -->
+    <script>
+        // Dynamic booking button functionality
+        function initializeScheduleButton() {
+            const scheduleBtn = document.querySelector('#schedule-now-btn');
+            
+            if (scheduleBtn) {
+                // Add click event listener
+                scheduleBtn.addEventListener('click', function() {
+                    // Add click animation
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = 'scale(1.05)';
+                        // Redirect to GoHighLevel booking calendar
+                        window.open('https://api.leadconnectorhq.com/widget/bookings/vincent-lancin-personal-calendar-qzdvemg56', '_blank');
+                    }, 100);
+                    
+                    // Reset animation
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 300);
+                });
+                
+                // Enhanced hover effects
+                scheduleBtn.addEventListener('mouseenter', function() {
+                    this.style.animationPlayState = 'paused';
+                });
+                
+                scheduleBtn.addEventListener('mouseleave', function() {
+                    this.style.animationPlayState = 'running';
+                });
+                
+                console.log('Schedule Now button initialized');
+            }
+        }
+        
+        // Initialize button when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Wait for loading screen to finish
+            setTimeout(() => {
+                initializeScheduleButton();
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

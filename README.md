@@ -1,6 +1,6 @@
 # Vincent Lancin — Portfolio
 
-`portfolio.html` — portfolio page with a filterable **Website Building Skills** section.
+Static site (from https://virtualtechvincent.pages.dev) with a filterable **Website Building Skills** section on `portfolio.html#skills`.
 
+- Pages: `index.html`, `about.html`, `services.html`, `portfolio.html`, `contact.html`
 - Edit skills in `js/skills.js` (`SKILLS` list).
-- The page also loads `css/style.css`, `js/main.js` and `js/portfolio.js` from the original site; add those files here.

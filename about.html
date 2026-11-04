@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Vincent Lancin | GoHighLevel Specialist</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif'],
+                        'space': ['Space Grotesk', 'sans-serif'],
+                    },
+                    colors: {
+                        'neon-blue': '#00d4ff',
+                        'neon-purple': '#8b5cf6',
+                        'neon-pink': '#f472b6',
+                        'cyber-dark': '#0a0a0a',
+                        'cyber-gray': '#1a1a1a',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Resume Button Styles -->
+    <style>
+        /* Resume Download Button Special Effects */
+        .cyber-button-outline {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cyber-button-outline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(244, 114, 182, 0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .cyber-button-outline:hover::before {
+            left: 100%;
+        }
+        
+        /* Resume icon bounce animation on hover */
+        @keyframes resume-bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-3px); }
+        }
+        
+        .cyber-button-outline:hover .fas.fa-file-pdf {
+            animation: resume-bounce 0.6s ease-in-out infinite;
+        }
+        
+        /* Icon color transition */
+        .cyber-button-outline .fas {
+            transition: color 0.3s ease;
+        }
+        
+        /* Responsive button adjustments */
+        @media (max-width: 640px) {
+            .cyber-button, .cyber-button-outline {
+                width: 100%;
+                text-align: center;
+            }
+        }
+        
+        /* Enhanced glow effect for resume button */
+        .cyber-button-outline:hover {
+            box-shadow: 
+                0 0 20px rgba(244, 114, 182, 0.4),
+                0 0 40px rgba(244, 114, 182, 0.2),
+                inset 0 0 20px rgba(244, 114, 182, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        /* Smooth transitions for all button effects */
+        .cyber-button, .cyber-button-outline {
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-cyber-dark text-white font-inter">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-40 bg-cyber-dark/80 backdrop-blur-lg border-b border-neon-blue/20">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="text-2xl font-space font-bold">
+                    <a href="index.html"><span class="text-neon-blue">Vincent</span><span class="text-white">Lancin</span></a>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="index.html" class="nav-link text-white hover:text-neon-blue transition-colors duration-300">Home</a>
+                    <a href="about.html" class="nav-link text-neon-blue font-semibold">About</a>
+                    <a href="services.html" class="nav-link text-white hover:text-neon-blue transition-colors duration-300">Services</a>
+                    <a href="portfolio.html" class="nav-link text-white hover:text-neon-blue transition-colors duration-300">Portfolio</a>
+                    <a href="portfolio.html#skills" class="nav-link text-white hover:text-neon-blue transition-colors duration-300">Skills</a>
+                    <a href="contact.html" class="nav-link text-white hover:text-neon-blue transition-colors duration-300">Contact</a>
+                    
+                    <!-- Theme Toggle -->
+                    <button id="theme-toggle" class="ml-4 p-2 rounded-lg bg-cyber-gray hover:bg-neon-blue/20 transition-all duration-300 border border-neon-blue/30">
+                        <i id="theme-icon" class="fas fa-sun text-neon-blue"></i>
+                    </button>
+                </div>
+                
+                <!-- Mobile Menu Button & Theme Toggle -->
+                <div class="md:hidden flex items-center space-x-3">
+                    <button id="theme-toggle-mobile" class="p-2 rounded-lg bg-cyber-gray hover:bg-neon-blue/20 transition-all duration-300 border border-neon-blue/30">
+                        <i id="theme-icon-mobile" class="fas fa-sun text-neon-blue"></i>
+                    </button>
+                    <button id="mobile-menu-btn" class="text-white">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="hidden md:hidden mt-4 pb-4">
+                <div class="flex flex-col space-y-4">
+                    <a href="index.html" class="text-white hover:text-neon-blue transition-colors duration-300">Home</a>
+                    <a href="about.html" class="text-neon-blue font-semibold">About</a>
+                    <a href="services.html" class="text-white hover:text-neon-blue transition-colors duration-300">Services</a>
+                    <a href="portfolio.html" class="text-white hover:text-neon-blue transition-colors duration-300">Portfolio</a>
+                    <a href="portfolio.html#skills" class="text-white hover:text-neon-blue transition-colors duration-300">Skills</a>
+                    <a href="contact.html" class="text-white hover:text-neon-blue transition-colors duration-300">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-20 relative overflow-hidden">
+        <!-- Animated Background -->
+        <div class="absolute inset-0 opacity-10">
+            <div class="cyber-grid"></div>
+        </div>
+
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h1 class="text-5xl md:text-6xl font-space font-bold mb-6">
+                    About <span class="text-gradient bg-gradient-to-r from-neon-blue to-neon-purple bg-clip-text text-transparent">Me</span>
+                </h1>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                    Transforming businesses through intelligent automation and high-converting marketing systems
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="py-20">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-20">
+                <!-- Profile Image / Avatar -->
+                <div class="text-center lg:text-left">
+                    <div class="inline-block relative">
+                        <div class="w-80 h-80 mx-auto lg:mx-0 rounded-full bg-gradient-to-r from-neon-blue via-neon-purple to-neon-pink p-1">
+                            <div class="w-full h-full rounded-full overflow-hidden">
+                                <img src="https://ideogram.ai/assets/image/lossless/response/JXbstwC6TR6LKX2GcJyZTA" alt="Vincent Lancin - GoHighLevel Specialist" class="w-full h-full object-cover">
+                            </div>
+                        </div>
+                        <!-- Floating Elements around avatar -->
+                        <div class="absolute top-10 -right-4 w-8 h-8 bg-neon-blue rounded-full animate-bounce" style="animation-delay: 0s;"></div>
+                        <div class="absolute bottom-10 -left-4 w-6 h-6 bg-neon-purple rounded-full animate-bounce" style="animation-delay: 1s;"></div>
+                        <div class="absolute top-1/2 -right-8 w-4 h-4 bg-neon-pink rounded-full animate-bounce" style="animation-delay: 2s;"></div>
+                    </div>
+                </div>
+
+                <!-- About Content -->
+                <div class="space-y-6">
+                    <h2 class="text-3xl md:text-4xl font-space font-bold text-neon-blue mb-6">
+                        Hi, I'm Vincent Lancin
+                    </h2>
+                    
+                    <p class="text-lg text-gray-300 leading-relaxed">
+                        With over <span class="text-neon-blue font-semibold">5 years of experience</span> spanning from 2020 to 2025, I have evolved from a dedicated Virtual Assistant to a specialized automation expert. My journey began as a <span class="text-neon-purple font-semibold">Lead Generation Specialist</span>, where I mastered the art of identifying and nurturing potential clients through strategic outreach and data-driven approaches.
+                    </p>
+                    
+                    <p class="text-lg text-gray-300 leading-relaxed">
+                        Building on that foundation, I expanded into <span class="text-neon-pink font-semibold">Social Media Management</span>, crafting compelling digital narratives and managing multi-platform campaigns that drove engagement and conversions. As an <span class="text-neon-blue font-semibold">Administrative Assistant</span>, I developed a keen eye for process optimization and workflow efficiency, which naturally led me to discover the transformative power of automation.
+                    </p>
+                    
+                    <p class="text-lg text-gray-300 leading-relaxed">
+                        Today, I specialize in transforming business processes through cutting-edge technology solutions. My expertise spans across <span class="text-neon-purple font-semibold">GoHighLevel</span>, <span class="text-neon-pink font-semibold">Zapier</span>, <span class="text-neon-blue font-semibold">Make</span>, and <span class="text-neon-purple font-semibold">n8n</span>, enabling me to create seamless integrations that drive results and maximize ROI for businesses of all sizes.
+                    </p>
+                    
+                    <p class="text-lg text-gray-300 leading-relaxed">
+                        I believe in the power of automation to not just streamline processes, but to create meaningful connections between businesses and their customers through intelligent, responsive systems. My diverse background as a VA gives me a unique perspective on the daily challenges businesses face, allowing me to design solutions that truly address real-world needs.
+                    </p>
+
+                    <div class="pt-6 space-y-4">
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <a href="contact.html" class="cyber-button bg-gradient-to-r from-neon-blue to-neon-purple hover:from-neon-purple hover:to-neon-pink transition-all duration-300 px-8 py-4 rounded-full text-white font-semibold text-lg inline-flex items-center justify-center">
+                                <i class="fas fa-envelope mr-2"></i>
+                                Let's Work Together
+                            </a>
+                            <a href="https://drive.google.com/file/d/1v6LjSFumNug9vxYx1NMlUcP04icZZNwU/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="cyber-button-outline border-2 border-neon-pink hover:border-neon-blue hover:bg-neon-blue/10 transition-all duration-300 px-8 py-4 rounded-full text-white font-semibold text-lg inline-flex items-center justify-center group" title="View and download Vincent's professional resume">
+                                <i class="fas fa-file-pdf mr-2 group-hover:animate-bounce text-neon-pink group-hover:text-neon-blue"></i>
+                                View Resume
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills & Expertise -->
+    <section class="py-20 bg-cyber-gray/50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-space font-bold mb-6">
+                    <span class="text-gradient bg-gradient-to-r from-neon-blue to-neon-purple bg-clip-text text-transparent">
+                        Skills & Expertise
+                    </span>
+                </h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                    Mastering the tools that power modern business automation
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- GoHighLevel Skills -->
+                <div class="skill-category bg-cyber-gray border border-neon-blue/20 rounded-xl p-8 hover:border-neon-blue/60 transition-all duration-300">
+                    <div class="text-center mb-6">
+                        <div class="w-16 h-16 bg-gradient-to-r from-neon-blue to-neon-purple rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-rocket text-2xl text-white"></i>
+                        </div>
+                        <h3 class="text-2xl font-space font-bold text-neon-blue">GoHighLevel</h3>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="skill-item">
+                            <div class="flex justify-between mb-2">
+                                <span class="text-gray-300">Landing Pages</span>
+                                <span class="text-neon-blue">95%</span>
+                            </div>
+                            <div class="w-full bg-gray-800 rounded-full h-2">
+                                <div class="bg-gradient-to-r from-neon-blue to-neon-purple h-2 rounded-full" style="width: 95%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="flex justify-between mb-2">
+                                <span class="text-gray-300">Funnels</span>
+                                <span class="text-neon-blue">90%</span>
+                            </div>
+                            <div class="w-full bg-gray-800 rounded-full h-2">
+                                <div class="bg-gradient-to-r from-neon-blue to-neon-purple h-2 rounded-full" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="flex justify-between mb-2">
+                                <span class="text-gray-300">Workflows</span>
+                                <span class="text-neon-blue">92%</span>
+                            </div>
+                            <div class="w-full bg-gray-800 rounded-full h-2">
+                                <div class="bg-gradient-to-r from-neon-blue to-neon-purple h-2 rounded-full" style="width: 92%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Automation Tools -->
+                <div class="skill-category bg-cyber-gray border border-neon-purple/20 rounded-xl p-8 hover:border-neon-purple/60 transition-all duration-300">
+                    <div class="text-center mb-6">
+                        <div class="w-16 h-16 bg-gradient-to-r from-neon-purple to-neon-pink rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-cogs text-2xl text-white"></i>
+                        </div>
+                        <h3 class="text-2xl font-space font-bold text-neon-purple">Automation</h3>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="skill-item">
+                            <div class="flex justify-between mb-2">
+                                <span class="text-gray-300">Zapier</span>
+                                <span class="text-neon-purple">88%</span>
+                            </div>
+                            <div class="w-full bg-gray-800 rounded-full h-2">
+                                <div class="bg-gradient-to-r from-neon-purple to-neon-pink h-2 rounded-full" style="width: 88%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="flex justify-between mb-2">
+                                <span class="text-gray-300">Make (Integromat)</span>
+                                <span class="text-neon-purple">85%</span>
+                            </div>
+                            <div class="w-full bg-gray-800 rounded-full h-2">
+                                <div class="bg-gradient-to-r from-neon-purple to-neon-pink h-2 rounded-full" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="flex justify-between mb-2">
+                                <span class="text-gray-300">n8n</span>
+                                <span class="text-neon-purple">82%</span>
+                            </div>
+                            <div class="w-full bg-gray-800 rounded-full h-2">
+                                <div class="bg-gradient-to-r from-neon-purple to-neon-pink h-2 rounded-full" style="width: 82%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Technical Skills -->
+                <div class="skill-category bg-cyber-gray border border-neon-pink/20 rounded-xl p-8 hover:border-neon-pink/60 transition-all duration-300">
+                    <div class="text-center mb-6">
+                        <div class="w-16 h-16 bg-gradient-to-r from-neon-pink to-neon-blue rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-code text-2xl text-white"></i>
+                        </div>
+                        <h3 class="text-2xl font-space font-bold text-neon-pink">Technical</h3>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="skill-item">
+                            <div class="flex justify-between mb-2">
+                                <span class="text-gray-300">API Integration</span>
+                                <span class="text-neon-pink">90%</span>
+                            </div>
+                            <div class="w-full bg-gray-800 rounded-full h-2">
+                                <div class="bg-gradient-to-r from-neon-pink to-neon-blue h-2 rounded-full" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="flex justify-between mb-2">
+                                <span class="text-gray-300">Database Management</span>
+                                <span class="text-neon-pink">85%</span>
+                            </div>
+                            <div class="w-full bg-gray-800 rounded-full h-2">
+                                <div class="bg-gradient-to-r from-neon-pink to-neon-blue h-2 rounded-full" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="flex justify-between mb-2">
+                                <span class="text-gray-300">Custom Scripts</span>
+                                <span class="text-neon-pink">80%</span>
+                            </div>
+                            <div class="w-full bg-gray-800 rounded-full h-2">
+                                <div class="bg-gradient-to-r from-neon-pink to-neon-blue h-2 rounded-full" style="width: 80%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Timeline -->
+    <section class="py-20">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-space font-bold mb-6">
+                    <span class="text-gradient bg-gradient-to-r from-neon-blue to-neon-purple bg-clip-text text-transparent">
+                        Experience Journey
+                    </span>
+                </h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                    My path to becoming a GoHighLevel and automation specialist
+                </p>
+            </div>
+
+            <div class="max-w-4xl mx-auto">
+                <div class="relative">
+                    <!-- Timeline Line -->
+                    <div class="absolute left-4 md:left-1/2 md:transform md:-translate-x-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-neon-blue via-neon-purple to-neon-pink"></div>
+
+                    <!-- Timeline Items -->
+                    <div class="space-y-12">
+                        <!-- Item 1 -->
+                        <div class="relative flex items-center">
+                            <div class="absolute left-0 md:left-1/2 md:transform md:-translate-x-1/2 w-8 h-8 bg-gradient-to-r from-neon-blue to-neon-purple rounded-full border-4 border-cyber-dark z-10"></div>
+                            <div class="ml-16 md:ml-0 md:w-1/2 md:pr-8">
+                                <div class="bg-cyber-gray border border-neon-blue/20 rounded-xl p-6 hover:border-neon-blue/60 transition-all duration-300">
+                                    <div class="text-sm text-neon-blue font-semibold mb-2">2024 - Present</div>
+                                    <h3 class="text-xl font-space font-bold mb-2">Senior GoHighLevel Specialist</h3>
+                                    <p class="text-gray-300">Leading complex automation projects, specializing in multi-platform integrations and high-converting funnel systems.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Item 2 -->
+                        <div class="relative flex items-center md:justify-end">
+                            <div class="absolute left-0 md:left-1/2 md:transform md:-translate-x-1/2 w-8 h-8 bg-gradient-to-r from-neon-purple to-neon-pink rounded-full border-4 border-cyber-dark z-10"></div>
+                            <div class="ml-16 md:ml-0 md:w-1/2 md:pl-8">
+                                <div class="bg-cyber-gray border border-neon-purple/20 rounded-xl p-6 hover:border-neon-purple/60 transition-all duration-300">
+                                    <div class="text-sm text-neon-purple font-semibold mb-2">2022 - 2024</div>
+                                    <h3 class="text-xl font-space font-bold mb-2">Automation Consultant</h3>
+                                    <p class="text-gray-300">Developed expertise in Zapier, Make, and n8n while helping businesses streamline their operations through intelligent automation.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Item 3 -->
+                        <div class="relative flex items-center">
+                            <div class="absolute left-0 md:left-1/2 md:transform md:-translate-x-1/2 w-8 h-8 bg-gradient-to-r from-neon-pink to-neon-blue rounded-full border-4 border-cyber-dark z-10"></div>
+                            <div class="ml-16 md:ml-0 md:w-1/2 md:pr-8">
+                                <div class="bg-cyber-gray border border-neon-pink/20 rounded-xl p-6 hover:border-neon-pink/60 transition-all duration-300">
+                                    <div class="text-sm text-neon-pink font-semibold mb-2">2020 - 2022</div>
+                                    <h3 class="text-xl font-space font-bold mb-2">Virtual Assistant & Lead Generation Specialist</h3>
+                                    <p class="text-gray-300">Started as a comprehensive VA providing lead generation, social media management, and administrative support. Specialized in process optimization and client relationship management, building the foundation for my automation expertise.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-gradient-to-r from-neon-blue/10 via-neon-purple/10 to-neon-pink/10">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-4xl md:text-5xl font-space font-bold mb-6">
+                Ready to <span class="text-gradient bg-gradient-to-r from-neon-blue to-neon-purple bg-clip-text text-transparent">Transform</span> Your Business?
+            </h2>
+            <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+                Let's discuss how my expertise can help automate your processes and boost your conversions.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <a href="contact.html" class="cyber-button bg-gradient-to-r from-neon-blue to-neon-purple hover:from-neon-purple hover:to-neon-pink transition-all duration-300 px-8 py-4 rounded-full text-white font-semibold text-lg">
+                    Get In Touch
+                </a>
+                <a href="portfolio.html" class="cyber-button-outline border-2 border-neon-blue hover:border-neon-purple transition-colors duration-300 px-8 py-4 rounded-full text-white font-semibold text-lg">
+                    View My Work
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-cyber-dark border-t border-neon-blue/20 py-12">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <div class="text-2xl font-space font-bold mb-4">
+                        <span class="text-neon-blue">Vincent</span><span class="text-white">Lancin</span>
+                    </div>
+                    <p class="text-gray-400">
+                        Transforming businesses through intelligent automation and high-converting funnels.
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4 text-neon-blue">Quick Links</h4>
+                    <div class="space-y-2">
+                        <a href="index.html" class="block text-gray-400 hover:text-neon-blue transition-colors">Home</a>
+                        <a href="about.html" class="block text-gray-400 hover:text-neon-blue transition-colors">About</a>
+                        <a href="services.html" class="block text-gray-400 hover:text-neon-blue transition-colors">Services</a>
+                        <a href="portfolio.html" class="block text-gray-400 hover:text-neon-blue transition-colors">Portfolio</a>
+                        <a href="contact.html" class="block text-gray-400 hover:text-neon-blue transition-colors">Contact</a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4 text-neon-purple">Connect</h4>
+                    <div class="flex space-x-4">
+                        <a href="https://linkedin.com/in/vincentlancin" target="_blank" class="text-gray-400 hover:text-neon-blue transition-colors text-xl">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="mailto:virtualtechvincent@gmail.com" class="text-gray-400 hover:text-neon-blue transition-colors text-xl">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 Vincent Lancin. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+</body>
+</html>

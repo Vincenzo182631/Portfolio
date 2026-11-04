@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <h3 class="text-xl font-space font-bold ${c.text}">${s.area}</h3>
         </div>
         <div class="flex flex-wrap gap-2">
-          ${s.items.map(item => `<span class="px-3 py-1 ${c.tag} text-xs rounded-full">${item}</span>`).join("")}
+          ${s.items.map(item => `<span class="skill-tag px-3 py-1 ${c.tag} text-xs rounded-full">${item}</span>`).join("")}
         </div>`;
       gridEl.appendChild(card);
     });
