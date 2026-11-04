@@ -1,5 +1,6 @@
-# Portfolio
+# Vincent Lancin — Portfolio
 
-Static portfolio site with a filterable **Skills** section covering every area of building a website.
+`portfolio.html` — portfolio page with a filterable **Website Building Skills** section.
 
-Open `index.html` in a browser. Edit skills in `script.js` (`SKILLS` array).
+- Edit skills in `js/skills.js` (`SKILLS` list).
+- The page also loads `css/style.css`, `js/main.js` and `js/portfolio.js` from the original site; add those files here.

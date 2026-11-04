@@ -1,0 +1,1995 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | Vincent Lancin - GoHighLevel Specialist</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif'],
+                        'space': ['Space Grotesk', 'sans-serif'],
+                    },
+                    colors: {
+                        'neon-blue': '#00d4ff',
+                        'neon-purple': '#8b5cf6',
+                        'neon-pink': '#f472b6',
+                        'cyber-dark': '#0a0a0a',
+                        'cyber-gray': '#1a1a1a',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- GoHighLevel Carousel Styles -->
+    <style>
+        /* GoHighLevel Screenshots Carousel */
+        .ghl-carousel-container {
+            overflow: hidden;
+            position: relative;
+        }
+
+        .ghl-carousel-track {
+            display: flex;
+            width: calc(100% * 14); /* 12 original + 2 duplicate slides */
+            animation: ghl-scroll 96s linear infinite 2s; /* Added 2s delay for smooth start */
+            will-change: transform;
+        }
+
+        .ghl-carousel-slide {
+            flex: 0 0 calc(100% / 14);
+            position: relative;
+        }
+
+        .ghl-carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Changed from cover to contain for no cropping */
+            object-position: center;
+            display: block;
+            border-radius: 0;
+            background: #1a1a1a; /* Dark background to match theme */
+            border: 1px solid rgba(139, 92, 246, 0.1); /* Subtle border for clarity */
+        }
+
+        /* Smooth scrolling animation */
+        @keyframes ghl-scroll {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(calc(-100% * 12 / 14)); /* Move exactly 12 slides */
+            }
+        }
+
+        /* Pause animation on hover */
+        .portfolio-item:hover .ghl-carousel-track {
+            animation-play-state: paused;
+        }
+
+        /* Ensure no gaps between images */
+        .ghl-carousel-slide {
+            margin-right: 0;
+            border: none;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .ghl-carousel-track {
+                animation-duration: 60s; /* Slower on mobile for better viewing */
+            }
+        }
+
+        /* Smooth image loading */
+        .ghl-carousel-slide img {
+            transition: opacity 0.3s ease-in-out;
+            opacity: 0;
+        }
+
+        .ghl-carousel-slide img.loaded {
+            opacity: 1;
+        }
+
+        /* Fallback for failed images */
+        .ghl-carousel-slide .image-placeholder {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(244, 114, 182, 0.2));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(139, 92, 246, 0.6);
+        }
+
+        /* Ensure carousel maintains aspect ratio */
+        .ghl-carousel-container::before {
+            content: '';
+            display: block;
+            padding-top: 56.25%; /* 16:9 aspect ratio */
+        }
+
+        .ghl-carousel-track {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: calc(100% * 14);
+            height: 100%;
+        }
+
+        /* Automation Carousel Styles */
+        .automation-carousel-wrapper {
+            position: relative;
+        }
+
+        .automation-carousel-container {
+            height: 400px;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+        }
+
+        .automation-carousel-track {
+            display: flex;
+            height: 100%;
+            animation: infiniteScroll 60s linear infinite;
+            will-change: transform;
+        }
+
+        .automation-carousel-slide {
+            flex: 0 0 auto;
+            width: 500px;
+            height: 100%;
+            margin-right: 20px;
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #1a1a1a;
+        }
+
+        .automation-carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            opacity: 1;
+        }
+
+        .automation-carousel-slide:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Infinite scroll animation - seamless loop */
+        @keyframes infiniteScroll {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(calc(-520px * 12)); /* 500px width + 20px margin * 12 images */
+            }
+        }
+
+        /* Ensure smooth restart */
+        .automation-carousel-track {
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+        }
+
+        /* Pause on container hover */
+        .automation-carousel-container:hover .automation-carousel-track {
+            animation-play-state: paused;
+        }
+
+        /* Navigation arrows */
+        .carousel-nav {
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .automation-carousel-container:hover .carousel-nav {
+            opacity: 1;
+        }
+
+        .carousel-nav:hover {
+            background: rgba(139, 92, 246, 0.8) !important;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        /* Responsive design */
+        @media (max-width: 1024px) {
+            .automation-carousel-container {
+                height: 350px;
+            }
+
+            .automation-carousel-slide {
+                width: 400px;
+            }
+
+            @keyframes infiniteScroll {
+                0% {
+                    transform: translateX(0);
+                }
+                100% {
+                    transform: translateX(calc(-420px * 12)); /* 400px width + 20px margin * 12 images */
+                }
+            }
+        }
+
+        @media (max-width: 768px) {
+            .automation-carousel-container {
+                height: 280px;
+            }
+
+            .automation-carousel-slide {
+                width: 300px;
+                margin-right: 15px;
+            }
+
+            .automation-carousel-track {
+                animation-duration: 45s; /* Faster on mobile */
+            }
+
+            @keyframes infiniteScroll {
+                0% {
+                    transform: translateX(0);
+                }
+                100% {
+                    transform: translateX(calc(-315px * 12)); /* 300px width + 15px margin * 12 images */
+                }
+            }
+
+            .carousel-nav {
+                padding: 8px;
+            }
+        }
+
+        /* Smooth transitions */
+        .automation-carousel-track {
+            transition: transform 0.3s ease-out;
+        }
+
+        /* Image loading states */
+        .automation-carousel-slide img {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(0, 212, 255, 0.1));
+        }
+
+        .automation-carousel-slide img:not([src]),
+        .automation-carousel-slide img[src=""] {
+            opacity: 0;
+        }
+
+        /* Websites Carousel Styles */
+        .websites-carousel-wrapper {
+            position: relative;
+        }
+
+        .websites-carousel-container {
+            height: 450px;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+        }
+
+        .websites-carousel-track {
+            display: flex;
+            height: 100%;
+            animation: websitesScroll 70s linear infinite;
+            will-change: transform;
+        }
+
+        .websites-carousel-slide {
+            flex: 0 0 auto;
+            width: 550px;
+            height: 100%;
+            margin-right: 25px;
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #1a1a1a;
+            box-shadow: 0 4px 20px rgba(0, 212, 255, 0.1);
+        }
+
+        .websites-carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+            display: block;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            opacity: 1;
+        }
+
+        .websites-carousel-slide:hover img {
+            transform: scale(1.03);
+        }
+
+        .websites-carousel-slide:hover {
+            box-shadow: 0 8px 30px rgba(0, 212, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Websites infinite scroll animation */
+        @keyframes websitesScroll {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(calc(-575px * 7)); /* 550px width + 25px margin * 7 images */
+            }
+        }
+
+        /* Ensure smooth restart for websites carousel */
+        .websites-carousel-track {
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+        }
+
+        /* Pause on container hover */
+        .websites-carousel-container:hover .websites-carousel-track {
+            animation-play-state: paused;
+        }
+
+        /* Navigation arrows for websites */
+        .websites-nav {
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .websites-carousel-container:hover .websites-nav {
+            opacity: 1;
+        }
+
+        .websites-nav:hover {
+            background: rgba(0, 212, 255, 0.8) !important;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        /* Responsive design for websites carousel */
+        @media (max-width: 1024px) {
+            .websites-carousel-container {
+                height: 380px;
+            }
+
+            .websites-carousel-slide {
+                width: 450px;
+                margin-right: 20px;
+            }
+
+            @keyframes websitesScroll {
+                0% {
+                    transform: translateX(0);
+                }
+                100% {
+                    transform: translateX(calc(-470px * 7)); /* 450px width + 20px margin * 7 images */
+                }
+            }
+        }
+
+        @media (max-width: 768px) {
+            .websites-carousel-container {
+                height: 320px;
+            }
+
+            .websites-carousel-slide {
+                width: 350px;
+                margin-right: 15px;
+                border-radius: 8px;
+            }
+
+            .websites-carousel-track {
+                animation-duration: 50s; /* Faster on mobile */
+            }
+
+            @keyframes websitesScroll {
+                0% {
+                    transform: translateX(0);
+                }
+                100% {
+                    transform: translateX(calc(-365px * 7)); /* 350px width + 15px margin * 7 images */
+                }
+            }
+
+            .websites-nav {
+                padding: 8px;
+            }
+        }
+
+        /* Smooth transitions for websites carousel */
+        .websites-carousel-track {
+            transition: transform 0.3s ease-out;
+        }
+
+        /* Image loading states for websites */
+        .websites-carousel-slide img {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(244, 114, 182, 0.1));
+        }
+
+        .websites-carousel-slide img:not([src]),
+        .websites-carousel-slide img[src=""] {
+            opacity: 0;
+        }
+
+        /* Zapier Carousel Styles */
+        .zapier-carousel-wrapper {
+            position: relative;
+        }
+
+        .zapier-carousel-container {
+            height: 420px;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+        }
+
+        .zapier-carousel-track {
+            display: flex;
+            height: 100%;
+            animation: zapierScroll 75s linear infinite;
+            will-change: transform;
+        }
+
+        .zapier-carousel-slide {
+            flex: 0 0 auto;
+            width: 520px;
+            height: 100%;
+            margin-right: 22px;
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            background: #1a1a1a;
+            box-shadow: 0 4px 20px rgba(244, 114, 182, 0.1);
+        }
+
+        .zapier-carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            opacity: 1;
+        }
+
+        .zapier-carousel-slide:hover img {
+            transform: scale(1.03);
+        }
+
+        .zapier-carousel-slide:hover {
+            box-shadow: 0 8px 30px rgba(244, 114, 182, 0.25);
+            transform: translateY(-2px);
+        }
+
+        /* Zapier infinite scroll animation */
+        @keyframes zapierScroll {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(calc(-542px * 10)); /* 520px width + 22px margin * 10 images */
+            }
+        }
+
+        /* Ensure smooth restart for zapier carousel */
+        .zapier-carousel-track {
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+        }
+
+        /* Pause on container hover */
+        .zapier-carousel-container:hover .zapier-carousel-track {
+            animation-play-state: paused;
+        }
+
+        /* Navigation arrows for zapier */
+        .zapier-nav {
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .zapier-carousel-container:hover .zapier-nav {
+            opacity: 1;
+        }
+
+        .zapier-nav:hover {
+            background: rgba(244, 114, 182, 0.8) !important;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        /* Responsive design for zapier carousel */
+        @media (max-width: 1024px) {
+            .zapier-carousel-container {
+                height: 360px;
+            }
+
+            .zapier-carousel-slide {
+                width: 420px;
+                margin-right: 18px;
+            }
+
+            @keyframes zapierScroll {
+                0% {
+                    transform: translateX(0);
+                }
+                100% {
+                    transform: translateX(calc(-438px * 10)); /* 420px width + 18px margin * 10 images */
+                }
+            }
+        }
+
+        @media (max-width: 768px) {
+            .zapier-carousel-container {
+                height: 300px;
+            }
+
+            .zapier-carousel-slide {
+                width: 330px;
+                margin-right: 15px;
+                border-radius: 8px;
+            }
+
+            .zapier-carousel-track {
+                animation-duration: 55s; /* Faster on mobile */
+            }
+
+            @keyframes zapierScroll {
+                0% {
+                    transform: translateX(0);
+                }
+                100% {
+                    transform: translateX(calc(-345px * 10)); /* 330px width + 15px margin * 10 images */
+                }
+            }
+
+            .zapier-nav {
+                padding: 8px;
+            }
+        }
+
+        /* Smooth transitions for zapier carousel */
+        .zapier-carousel-track {
+            transition: transform 0.3s ease-out;
+        }
+
+        /* Image loading states for zapier */
+        .zapier-carousel-slide img {
+            background: linear-gradient(135deg, rgba(244, 114, 182, 0.1), rgba(139, 92, 246, 0.1));
+        }
+
+        .zapier-carousel-slide img:not([src]),
+        .zapier-carousel-slide img[src=""] {
+            opacity: 0;
+        }
+    </style>
+</head>
+<body class="bg-cyber-dark text-white font-inter">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-40 bg-cyber-dark/80 backdrop-blur-lg border-b border-neon-blue/20">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="text-2xl font-space font-bold">
+                    <a href="index.html"><span class="text-neon-blue">Vincent</span><span class="text-white">Lancin</span></a>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="index.html" class="nav-link text-white hover:text-neon-blue transition-colors duration-300">Home</a>
+                    <a href="about.html" class="nav-link text-white hover:text-neon-blue transition-colors duration-300">About</a>
+                    <a href="services.html" class="nav-link text-white hover:text-neon-blue transition-colors duration-300">Services</a>
+                    <a href="portfolio.html" class="nav-link text-neon-blue font-semibold">Portfolio</a>
+                    <a href="#skills" class="nav-link text-white hover:text-neon-blue transition-colors duration-300">Skills</a>
+                    <a href="contact.html" class="nav-link text-white hover:text-neon-blue transition-colors duration-300">Contact</a>
+
+                    <!-- Theme Toggle -->
+                    <button id="theme-toggle" class="ml-4 p-2 rounded-lg bg-cyber-gray hover:bg-neon-blue/20 transition-all duration-300 border border-neon-blue/30">
+                        <i id="theme-icon" class="fas fa-sun text-neon-blue"></i>
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Button & Theme Toggle -->
+                <div class="md:hidden flex items-center space-x-3">
+                    <button id="theme-toggle-mobile" class="p-2 rounded-lg bg-cyber-gray hover:bg-neon-blue/20 transition-all duration-300 border border-neon-blue/30">
+                        <i id="theme-icon-mobile" class="fas fa-sun text-neon-blue"></i>
+                    </button>
+                    <button id="mobile-menu-btn" class="text-white">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="hidden md:hidden mt-4 pb-4">
+                <div class="flex flex-col space-y-4">
+                    <a href="index.html" class="text-white hover:text-neon-blue transition-colors duration-300">Home</a>
+                    <a href="about.html" class="text-white hover:text-neon-blue transition-colors duration-300">About</a>
+                    <a href="services.html" class="text-white hover:text-neon-blue transition-colors duration-300">Services</a>
+                    <a href="portfolio.html" class="text-neon-blue font-semibold">Portfolio</a>
+                    <a href="#skills" class="text-white hover:text-neon-blue transition-colors duration-300">Skills</a>
+                    <a href="contact.html" class="text-white hover:text-neon-blue transition-colors duration-300">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-20 relative overflow-hidden">
+        <!-- Animated Background -->
+        <div class="absolute inset-0 opacity-10">
+            <div class="cyber-grid"></div>
+        </div>
+
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h1 class="text-5xl md:text-6xl font-space font-bold mb-6">
+                    My <span class="text-gradient bg-gradient-to-r from-neon-blue to-neon-purple bg-clip-text text-transparent">Portfolio</span>
+                </h1>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                    Real results from successful automation and funnel projects
+                </p>
+            </div>
+
+            <!-- Filter Buttons -->
+            <div class="flex flex-wrap justify-center gap-4 mb-12">
+                <button class="filter-btn active bg-gradient-to-r from-neon-blue to-neon-purple px-6 py-3 rounded-full font-semibold transition-all duration-300" data-filter="all">
+                    All Projects
+                </button>
+                <button class="filter-btn bg-cyber-gray border border-neon-blue/30 hover:border-neon-blue px-6 py-3 rounded-full font-semibold transition-all duration-300" data-filter="gohighlevel">
+                    GoHighLevel
+                </button>
+                <button class="filter-btn bg-cyber-gray border border-neon-purple/30 hover:border-neon-purple px-6 py-3 rounded-full font-semibold transition-all duration-300" data-filter="automation">
+                    Automation
+                </button>
+                <button class="filter-btn bg-cyber-gray border border-neon-pink/30 hover:border-neon-pink px-6 py-3 rounded-full font-semibold transition-all duration-300" data-filter="funnel">
+                    Funnels
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Workflow Automations Section -->
+    <section class="py-20 bg-gradient-to-r from-neon-purple/5 via-cyber-dark to-neon-blue/5">
+        <div class="container mx-auto px-6">
+            <!-- Section Header -->
+            <div class="text-center mb-16">
+                <div class="inline-flex items-center gap-3 mb-4">
+                    <i class="fas fa-cogs text-3xl text-neon-purple"></i>
+                    <h2 class="text-4xl md:text-5xl font-space font-bold">
+                        <span class="text-neon-purple">Workflow</span> <span class="text-gradient bg-gradient-to-r from-neon-blue to-neon-pink bg-clip-text text-transparent">Automations</span>
+                    </h2>
+                </div>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                    Real screenshots from actual automation projects and GoHighLevel implementations
+                </p>
+            </div>
+
+            <!-- Infinite Scroll Carousel -->
+            <div class="automation-carousel-wrapper max-w-6xl mx-auto">
+                <div class="automation-carousel-container relative bg-cyber-gray/30 rounded-2xl overflow-hidden border border-neon-purple/30 hover:border-neon-purple/60 transition-all duration-300">
+
+                    <!-- Navigation Arrows -->
+                    <button class="carousel-nav carousel-nav-prev absolute left-4 top-1/2 transform -translate-y-1/2 z-20 bg-cyber-dark/80 hover:bg-neon-purple/80 text-white p-3 rounded-full transition-all duration-300 opacity-0 hover:opacity-100">
+                        <i class="fas fa-chevron-left text-lg"></i>
+                    </button>
+                    <button class="carousel-nav carousel-nav-next absolute right-4 top-1/2 transform -translate-y-1/2 z-20 bg-cyber-dark/80 hover:bg-neon-purple/80 text-white p-3 rounded-full transition-all duration-300 opacity-0 hover:opacity-100">
+                        <i class="fas fa-chevron-right text-lg"></i>
+                    </button>
+
+                    <!-- Carousel Track -->
+                    <div class="automation-carousel-track" id="automationCarouselTrack">
+                        <!-- Original Images -->
+                        <div class="automation-carousel-slide">
+                            <img src="https://storage.googleapis.com/msgsndr/uL3OEAVZMTKOFvNmj6RC/media/68bb9bda460af278808628bc.jpeg" alt="Workflow Automation Screenshot 1" loading="eager">
+                        </div>
+                        <div class="automation-carousel-slide">
+                            <img src="https://storage.googleapis.com/msgsndr/uL3OEAVZMTKOFvNmj6RC/media/68bb9bda47f24d45d5cbe7c4.jpeg" alt="Workflow Automation Screenshot 2" loading="eager">
+                        </div>
+                        <div class="automation-carousel-slide">
+                            <img src="https://storage.googleapis.com/msgsndr/uL3OEAVZMTKOFvNmj6RC/media/68bb9bda1ff6ea494205d889.jpeg" alt="Workflow Automation Screenshot 3" loading="eager">
+                        </div>
+                        <div class="automation-carousel-slide">
+                            <img src="https://storage.googleapis.com/msgsndr/uL3OEAVZMTKOFvNmj6RC/media/68bb9bdab200284f7fdd6642.jpeg" alt="Workflow Automation Screenshot 4" loading="eager">
+                        </div>
+                        <div class="automation-carousel-slide">
+                            <img src="https://storage.googleapis.com/msgsndr/uL3OEAVZMTKOFvNmj6RC/media/68bb9bdab2002817dbdd6643.jpeg" alt="Workflow Automation Screenshot 5" loading="eager">
+                        </div>
+                        <div class="automation-carousel-slide">
+                            <img src="https://storage.googleapis.com/msgsndr/uL3OEAVZMTKOFvNmj6RC/media/68bb9bda460af2c1c68628bd.jpeg" alt="Workflow Automation Screenshot 6" loading="eager">
+                        </div>
+                        <div class="automation-carousel-slide">
+                            <img src="https://storage.googleapis.com/msgsndr/uL3OEAVZMTKOFvNmj6RC/media/68bb9bda47f24d5699cbe7c5.jpeg" alt="Workflow Automation Screenshot 7" loading="eager">
+                        </div>
+                        <div class="automation-carousel-slide">
+                            <img src="https://storage.googleapis.com/msgsndr/uL3OEAVZMTKOFvNmj6RC/media/68bb9bda47f24d8b5fcbe7c3.jpeg" alt="Workflow Automation Screenshot 8" loading="eager">
+                        </div>
+                        <div class="automation-carousel-slide">
+                            <img src="https://storage.googleapis.com/msgsndr/uL3OEAVZMTKOFvNmj6RC/media/68bb9bda561de1810f18a32e.jpeg" alt="Workflow Automation Screenshot 9" loading="eager">
+                        </div>
+                        <div class="automation-carousel-slide">
+                            <img src="https://storage.googleapis.com/msgsndr/uL3OEAVZMTKOFvNmj6RC/media/68bb9bda47f24d9256cbe7c6.jpeg" alt="Workflow Automation Screenshot 10" loading="eager">
+                        </div>
+                        <div class="automation-carousel-slide">
+                            <img src="https://storage.googleapis.com/msgsndr/uL3OEAVZMTKOFvNmj6RC/media/68bb9bdab2002836eedd6641.jpeg" alt="Workflow Automation Screenshot 11" loading="eager">
+                        </div>
+                        <div class="automation-carousel-slide">
+                            <img src="https://storage.googleapis.com/msgsndr/uL3OEAVZMTKOFvNmj6RC/media/68bb9bda460af2be7e8628be.jpeg" alt="Workflow Automation Screenshot 12" loading="eager">
+                        </div>
+                    </div>
+
+                    <!-- Carousel Status -->
+                    <div class="absolute top-4 right-4 bg-cyber-dark/70 px-3 py-1 rounded-full text-xs text-neon-blue z-10">
+                        <i class="fas fa-infinity mr-1"></i>Auto-scroll
+                    </div>
+                </div>
+
+                <!-- Carousel Controls Info -->
+                <div class="text-center mt-6 text-sm text-gray-400">
+                    <div class="flex flex-wrap justify-center items-center gap-4">
+                        <span><i class="fas fa-mouse mr-1 text-neon-purple"></i>Hover to pause</span>
+                        <span><i class="fas fa-arrows-alt-h mr-1 text-neon-blue"></i>Drag to scroll</span>
+                        <span><i class="fas fa-hand-pointer mr-1 text-neon-pink"></i>Click arrows to navigate</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA Button -->
+            <div class="text-center mt-12">
+                <a href="services.html" class="inline-flex items-center gap-3 bg-gradient-to-r from-neon-purple to-neon-blue hover:from-neon-blue hover:to-neon-purple transition-all duration-300 px-8 py-4 rounded-full text-white font-semibold text-lg transform hover:scale-105">
+                    <i class="fas fa-cogs text-xl"></i>
+                    <span>Explore Automation Services</span>
+                    <i class="fas fa-arrow-right text-sm"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Websites & Landing Pages Section -->
+    <section class="py-20 bg-gradient-to-r from-neon-blue/5 via-cyber-dark to-neon-pink/5">
+        <div class="container mx-auto px-6">
+            <!-- Section Header -->
+            <div class="text-center mb-16">
+                <div class="inline-flex items-center gap-3 mb-4">
+                    <i class="fas fa-globe text-3xl text-neon-blue"></i>
+                    <h2 class="text-4xl md:text-5xl font-space font-bold">
+                        <span class="text-neon-blue">Websites</span> <span class="text-white">&</span> <span class="text-gradient bg-gradient-to-r from-neon-pink to-neon-purple bg-clip-text text-transparent">Landing Pages</span>
+                    </h2>
+                </div>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                    Custom websites and high-converting landing pages built for performance and results
+                </p>
+            </div>
+
+            <!-- Infinite Scroll Carousel -->
+            <div class="websites-carousel-wrapper max-w-6xl mx-auto">
+                <div class="websites-carousel-container relative bg-cyber-gray/30 rounded-2xl overflow-hidden border border-neon-blue/30 hover:border-neon-blue/60 transition-all duration-300">
+
+                    <!-- Navigation Arrows -->
+                    <button class="websites-nav websites-nav-prev absolute left-4 top-1/2 transform -translate-y-1/2 z-20 bg-cyber-dark/80 hover:bg-neon-blue/80 text-white p-3 rounded-full transition-all duration-300 opacity-0 hover:opacity-100">
+                        <i class="fas fa-chevron-left text-lg"></i>
+                    </button>
+                    <button class="websites-nav websites-nav-next absolute right-4 top-1/2 transform -translate-y-1/2 z-20 bg-cyber-dark/80 hover:bg-neon-blue/80 text-white p-3 rounded-full transition-all duration-300 opacity-0 hover:opacity-100">
+                        <i class="fas fa-chevron-right text-lg"></i>
+                    </button>
+
+                    <!-- Carousel Track -->
+                    <div class="websites-carousel-track" id="websitesCarouselTrack">
+                        <!-- Original Images -->
+                        <div class="websites-carousel-slide">
+                            <img src="https://storage.googleapis.com/msgsndr/uL3OEAVZMTKOFvNmj6RC/media/68bba312561de17705193fd9.png" alt="Website & Landing Page Design 1" loading="eager">
+                        </div>
+                        <div class="websites-carousel-slide">
+                            <img src="https://storage.googleapis.com/msgsndr/uL3OEAVZMTKOFvNmj6RC/media/68bba3121ff6ea6ea6066e13.png" alt="Website & Landing Page Design 2" loading="eager">
+                        </div>
+                        <div class="websites-carousel-slide">
+                            <img src="https://storage.googleapis.com/msgsndr/uL3OEAVZMTKOFvNmj6RC/media/68bba3121ff6eadfa7066e11.png" alt="Website & Landing Page Design 3" loading="eager">
+                        </div>
+                        <div class="websites-carousel-slide">
+                            <img src="https://storage.googleapis.com/msgsndr/uL3OEAVZMTKOFvNmj6RC/media/68bba3121ff6ea6f8b066e12.png" alt="Website & Landing Page Design 4" loading="eager">
+                        </div>
+                        <div class="websites-carousel-slide">
+                            <img src="https://storage.googleapis.com/msgsndr/uL3OEAVZMTKOFvNmj6RC/media/68bba312b20028601dddfca8.png" alt="Website & Landing Page Design 5" loading="eager">
+                        </div>
+                        <div class="websites-carousel-slide">
+                            <img src="https://storage.googleapis.com/msgsndr/uL3OEAVZMTKOFvNmj6RC/media/68bba312b200288157ddfcaa.png" alt="Website & Landing Page Design 6" loading="eager">
+                        </div>
+                        <div class="websites-carousel-slide">
+                            <img src="https://storage.googleapis.com/msgsndr/uL3OEAVZMTKOFvNmj6RC/media/68bba312b200282d1cddfca9.png" alt="Website & Landing Page Design 7" loading="eager">
+                        </div>
+                    </div>
+
+                    <!-- Carousel Status -->
+                    <div class="absolute top-4 right-4 bg-cyber-dark/70 px-3 py-1 rounded-full text-xs text-neon-blue z-10">
+                        <i class="fas fa-infinity mr-1"></i>Auto-scroll
+                    </div>
+                </div>
+
+                <!-- Carousel Controls Info -->
+                <div class="text-center mt-6 text-sm text-gray-400">
+                    <div class="flex flex-wrap justify-center items-center gap-4">
+                        <span><i class="fas fa-mouse mr-1 text-neon-blue"></i>Hover to pause</span>
+                        <span><i class="fas fa-arrows-alt-h mr-1 text-neon-pink"></i>Drag to scroll</span>
+                        <span><i class="fas fa-hand-pointer mr-1 text-neon-purple"></i>Click arrows to navigate</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA Button -->
+            <div class="text-center mt-12">
+                <a href="services.html" class="inline-flex items-center gap-3 bg-gradient-to-r from-neon-blue to-neon-pink hover:from-neon-pink hover:to-neon-blue transition-all duration-300 px-8 py-4 rounded-full text-white font-semibold text-lg transform hover:scale-105">
+                    <i class="fas fa-globe text-xl"></i>
+                    <span>Explore Website Services</span>
+                    <i class="fas fa-arrow-right text-sm"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Zapier Automations Section -->
+    <section class="py-20 bg-gradient-to-r from-neon-pink/5 via-cyber-dark to-neon-purple/5">
+        <div class="container mx-auto px-6">
+            <!-- Section Header -->
+            <div class="text-center mb-16">
+                <div class="inline-flex items-center gap-3 mb-4">
+                    <i class="fas fa-bolt text-3xl text-neon-pink"></i>
+                    <h2 class="text-4xl md:text-5xl font-space font-bold">
+                        <span class="text-neon-pink">Zapier</span> <span class="text-gradient bg-gradient-to-r from-neon-purple to-neon-blue bg-clip-text text-transparent">Automations</span>
+                    </h2>
+                </div>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                    Powerful Zapier integrations and automated workflows connecting your favorite apps
+                </p>
+            </div>
+
+            <!-- Infinite Scroll Carousel -->
+            <div class="zapier-carousel-wrapper max-w-6xl mx-auto">
+                <div class="zapier-carousel-container relative bg-cyber-gray/30 rounded-2xl overflow-hidden border border-neon-pink/30 hover:border-neon-pink/60 transition-all duration-300">
+
+                    <!-- Navigation Arrows -->
+                    <button class="zapier-nav zapier-nav-prev absolute left-4 top-1/2 transform -translate-y-1/2 z-20 bg-cyber-dark/80 hover:bg-neon-pink/80 text-white p-3 rounded-full transition-all duration-300 opacity-0 hover:opacity-100">
+                        <i class="fas fa-chevron-left text-lg"></i>
+                    </button>
+                    <button class="zapier-nav zapier-nav-next absolute right-4 top-1/2 transform -translate-y-1/2 z-20 bg-cyber-dark/80 hover:bg-neon-pink/80 text-white p-3 rounded-full transition-all duration-300 opacity-0 hover:opacity-100">
+                        <i class="fas fa-chevron-right text-lg"></i>
+                    </button>
+
+                    <!-- Carousel Track -->
+                    <div class="zapier-carousel-track" id="zapierCarouselTrack">
+                        <!-- Original Images -->
+                        <div class="zapier-carousel-slide">
+                            <img src="https://storage.googleapis.com/msgsndr/uL3OEAVZMTKOFvNmj6RC/media/68ca58c74e32159c0614490d.jpeg" alt="Zapier Automation Screenshot 1" loading="eager">
+                        </div>
+                        <div class="zapier-carousel-slide">
+                            <img src="https://storage.googleapis.com/msgsndr/uL3OEAVZMTKOFvNmj6RC/media/68ca58c77505d3941cc615b2.jpeg" alt="Zapier Automation Screenshot 2" loading="eager">
+                        </div>
+                        <div class="zapier-carousel-slide">
+                            <img src="https://storage.googleapis.com/msgsndr/uL3OEAVZMTKOFvNmj6RC/media/68ca58c7b29b024d1e3e077a.jpeg" alt="Zapier Automation Screenshot 3" loading="eager">
+                        </div>
+                        <div class="zapier-carousel-slide">
+                            <img src="https://storage.googleapis.com/msgsndr/uL3OEAVZMTKOFvNmj6RC/media/68ca58c74e3215d56c144903.jpeg" alt="Zapier Automation Screenshot 4" loading="eager">
+                        </div>
+                        <div class="zapier-carousel-slide">
+                            <img src="https://storage.googleapis.com/msgsndr/uL3OEAVZMTKOFvNmj6RC/media/68ca58c7b29b027c033e077b.jpeg" alt="Zapier Automation Screenshot 5" loading="eager">
+                        </div>
+                        <div class="zapier-carousel-slide">
+                            <img src="https://storage.googleapis.com/msgsndr/uL3OEAVZMTKOFvNmj6RC/media/68ca58c79fe3cf28b95336e7.jpeg" alt="Zapier Automation Screenshot 6" loading="eager">
+                        </div>
+                        <div class="zapier-carousel-slide">
+                            <img src="https://storage.googleapis.com/msgsndr/uL3OEAVZMTKOFvNmj6RC/media/68ca58c79fe3cf6cb95336e8.jpeg" alt="Zapier Automation Screenshot 7" loading="eager">
+                        </div>
+                        <div class="zapier-carousel-slide">
+                            <img src="https://storage.googleapis.com/msgsndr/uL3OEAVZMTKOFvNmj6RC/media/68ca58c79fe3cf6ecc5336e6.jpeg" alt="Zapier Automation Screenshot 8" loading="eager">
+                        </div>
+                        <div class="zapier-carousel-slide">
+                            <img src="https://storage.googleapis.com/msgsndr/uL3OEAVZMTKOFvNmj6RC/media/68ca58c74e3215271f144902.jpeg" alt="Zapier Automation Screenshot 9" loading="eager">
+                        </div>
+                        <div class="zapier-carousel-slide">
+                            <img src="https://storage.googleapis.com/msgsndr/uL3OEAVZMTKOFvNmj6RC/media/68ca58c71ed44165b2723cea.jpeg" alt="Zapier Automation Screenshot 10" loading="eager">
+                        </div>
+                    </div>
+
+                    <!-- Carousel Status -->
+                    <div class="absolute top-4 right-4 bg-cyber-dark/70 px-3 py-1 rounded-full text-xs text-neon-pink z-10">
+                        <i class="fas fa-infinity mr-1"></i>Auto-scroll
+                    </div>
+                </div>
+
+                <!-- Carousel Controls Info -->
+                <div class="text-center mt-6 text-sm text-gray-400">
+                    <div class="flex flex-wrap justify-center items-center gap-4">
+                        <span><i class="fas fa-mouse mr-1 text-neon-pink"></i>Hover to pause</span>
+                        <span><i class="fas fa-arrows-alt-h mr-1 text-neon-purple"></i>Drag to scroll</span>
+                        <span><i class="fas fa-hand-pointer mr-1 text-neon-blue"></i>Click arrows to navigate</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA Button -->
+            <div class="text-center mt-12">
+                <a href="services.html" class="inline-flex items-center gap-3 bg-gradient-to-r from-neon-pink to-neon-purple hover:from-neon-purple hover:to-neon-pink transition-all duration-300 px-8 py-4 rounded-full text-white font-semibold text-lg transform hover:scale-105">
+                    <i class="fas fa-bolt text-xl"></i>
+                    <span>Explore Zapier Services</span>
+                    <i class="fas fa-arrow-right text-sm"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Grid -->
+    <section class="py-20">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="portfolio-grid">
+
+                <!-- Project 1: E-commerce Automation -->
+                <div class="portfolio-item automation funnel" data-category="automation funnel">
+                    <div class="bg-cyber-gray border border-neon-blue/20 rounded-xl overflow-hidden hover:border-neon-blue/60 transition-all duration-300 group">
+                        <div class="aspect-video bg-gradient-to-br from-neon-blue/20 to-neon-purple/20 flex items-center justify-center relative overflow-hidden">
+                            <i class="fas fa-shopping-cart text-6xl text-neon-blue/50"></i>
+                            <!-- Overlay on hover -->
+                            <div class="absolute inset-0 bg-cyber-dark/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                <button class="cyber-button bg-gradient-to-r from-neon-blue to-neon-purple px-6 py-3 rounded-full font-semibold" onclick="openModal('project1')">
+                                    View Details
+                                </button>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="px-3 py-1 bg-neon-blue/20 text-neon-blue text-xs rounded-full">Zapier</span>
+                                <span class="px-3 py-1 bg-neon-purple/20 text-neon-purple text-xs rounded-full">E-commerce</span>
+                            </div>
+                            <h3 class="text-xl font-space font-bold mb-2 text-neon-blue">E-commerce Automation Suite</h3>
+                            <p class="text-gray-300 mb-4">Complete order processing and customer journey automation for online store, resulting in 40% faster order fulfillment.</p>
+                            <div class="flex justify-between items-center">
+                                <div class="text-sm text-gray-400">
+                                    <i class="fas fa-chart-arrow-up mr-2"></i>150% ROI increase
+                                </div>
+                                <div class="text-sm text-neon-blue font-semibold">2024</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2: GoHighLevel CRM Setup -->
+                <div class="portfolio-item gohighlevel" data-category="gohighlevel">
+                    <div class="bg-cyber-gray border border-neon-purple/20 rounded-xl overflow-hidden hover:border-neon-purple/60 transition-all duration-300 group">
+                        <div class="aspect-video relative overflow-hidden bg-cyber-gray">
+                            <!-- GoHighLevel Screenshots Carousel -->
+                            <div class="ghl-carousel-container absolute inset-0">
+                                <div class="ghl-carousel-track">
+                                    <div class="ghl-carousel-slide">
+                                        <img src="https://storage.googleapis.com/msgsndr/uL3OEAVZMTKOFvNmj6RC/media/68bb9bda460af278808628bc.jpeg" alt="GoHighLevel Dashboard Screenshot 1" class="w-full h-full object-cover">
+                                    </div>
+                                    <div class="ghl-carousel-slide">
+                                        <img src="https://storage.googleapis.com/msgsndr/uL3OEAVZMTKOFvNmj6RC/media/68bb9bda47f24d45d5cbe7c4.jpeg" alt="GoHighLevel Dashboard Screenshot 2" class="w-full h-full object-cover">
+                                    </div>
+                                    <div class="ghl-carousel-slide">
+                                        <img src="https://storage.googleapis.com/msgsndr/uL3OEAVZMTKOFvNmj6RC/media/68bb9bda1ff6ea494205d889.jpeg" alt="GoHighLevel Dashboard Screenshot 3" class="w-full h-full object-cover">
+                                    </div>
+                                    <div class="ghl-carousel-slide">
+                                        <img src="https://storage.googleapis.com/msgsndr/uL3OEAVZMTKOFvNmj6RC/media/68bb9bdab200284f7fdd6642.jpeg" alt="GoHighLevel Dashboard Screenshot 4" class="w-full h-full object-cover">
+                                    </div>
+                                    <div class="ghl-carousel-slide">
+                                        <img src="https://storage.googleapis.com/msgsndr/uL3OEAVZMTKOFvNmj6RC/media/68bb9bdab2002817dbdd6643.jpeg" alt="GoHighLevel Dashboard Screenshot 5" class="w-full h-full object-cover">
+                                    </div>
+                                    <div class="ghl-carousel-slide">
+                                        <img src="https://storage.googleapis.com/msgsndr/uL3OEAVZMTKOFvNmj6RC/media/68bb9bda460af2c1c68628bd.jpeg" alt="GoHighLevel Dashboard Screenshot 6" class="w-full h-full object-cover">
+                                    </div>
+                                    <div class="ghl-carousel-slide">
+                                        <img src="https://storage.googleapis.com/msgsndr/uL3OEAVZMTKOFvNmj6RC/media/68bb9bda47f24d5699cbe7c5.jpeg" alt="GoHighLevel Dashboard Screenshot 7" class="w-full h-full object-cover">
+                                    </div>
+                                    <div class="ghl-carousel-slide">
+                                        <img src="https://storage.googleapis.com/msgsndr/uL3OEAVZMTKOFvNmj6RC/media/68bb9bda47f24d8b5fcbe7c3.jpeg" alt="GoHighLevel Dashboard Screenshot 8" class="w-full h-full object-cover">
+                                    </div>
+                                    <div class="ghl-carousel-slide">
+                                        <img src="https://storage.googleapis.com/msgsndr/uL3OEAVZMTKOFvNmj6RC/media/68bb9bda561de1810f18a32e.jpeg" alt="GoHighLevel Dashboard Screenshot 9" class="w-full h-full object-cover">
+                                    </div>
+                                    <div class="ghl-carousel-slide">
+                                        <img src="https://storage.googleapis.com/msgsndr/uL3OEAVZMTKOFvNmj6RC/media/68bb9bda47f24d9256cbe7c6.jpeg" alt="GoHighLevel Dashboard Screenshot 10" class="w-full h-full object-cover">
+                                    </div>
+                                    <div class="ghl-carousel-slide">
+                                        <img src="https://storage.googleapis.com/msgsndr/uL3OEAVZMTKOFvNmj6RC/media/68bb9bdab2002836eedd6641.jpeg" alt="GoHighLevel Dashboard Screenshot 11" class="w-full h-full object-cover">
+                                    </div>
+                                    <div class="ghl-carousel-slide">
+                                        <img src="https://storage.googleapis.com/msgsndr/uL3OEAVZMTKOFvNmj6RC/media/68bb9bda460af2be7e8628be.jpeg" alt="GoHighLevel Dashboard Screenshot 12" class="w-full h-full object-cover">
+                                    </div>
+                                    <!-- Duplicate first few slides for seamless loop -->
+                                    <div class="ghl-carousel-slide">
+                                        <img src="https://storage.googleapis.com/msgsndr/uL3OEAVZMTKOFvNmj6RC/media/68bb9bda460af278808628bc.jpeg" alt="GoHighLevel Dashboard Screenshot 1" class="w-full h-full object-cover">
+                                    </div>
+                                    <div class="ghl-carousel-slide">
+                                        <img src="https://storage.googleapis.com/msgsndr/uL3OEAVZMTKOFvNmj6RC/media/68bb9bda47f24d45d5cbe7c4.jpeg" alt="GoHighLevel Dashboard Screenshot 2" class="w-full h-full object-cover">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Carousel info overlay -->
+                            <div class="absolute top-2 right-2 bg-cyber-dark/70 px-2 py-1 rounded text-xs text-neon-blue z-10 opacity-60">
+                                <i class="fas fa-images mr-1"></i>12 Screenshots
+                            </div>
+                            <!-- Hover overlay with view details button -->
+                            <div class="absolute inset-0 bg-cyber-dark/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
+                                <div class="text-center">
+                                    <button class="cyber-button bg-gradient-to-r from-neon-purple to-neon-pink px-6 py-3 rounded-full font-semibold mb-2" onclick="openModal('project2')">
+                                        View Details
+                                    </button>
+                                    <div class="text-xs text-gray-300">
+                                        <i class="fas fa-hand-pointer mr-1"></i>Click to pause carousel
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="px-3 py-1 bg-neon-purple/20 text-neon-purple text-xs rounded-full">GoHighLevel</span>
+                                <span class="px-3 py-1 bg-neon-pink/20 text-neon-pink text-xs rounded-full">CRM</span>
+                            </div>
+                            <h3 class="text-xl font-space font-bold mb-2 text-neon-purple">Digital Agency CRM</h3>
+                            <p class="text-gray-300 mb-4">Complete GoHighLevel setup for digital marketing agency, including lead management and client communication workflows.</p>
+                            <div class="flex justify-between items-center">
+                                <div class="text-sm text-gray-400">
+                                    <i class="fas fa-users mr-2"></i>300+ leads/month
+                                </div>
+                                <div class="text-sm text-neon-purple font-semibold">2024</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3: Lead Generation Funnel -->
+                <div class="portfolio-item gohighlevel funnel" data-category="gohighlevel funnel">
+                    <div class="bg-cyber-gray border border-neon-pink/20 rounded-xl overflow-hidden hover:border-neon-pink/60 transition-all duration-300 group">
+                        <div class="aspect-video bg-gradient-to-br from-neon-pink/20 to-neon-blue/20 flex items-center justify-center relative overflow-hidden">
+                            <i class="fas fa-filter text-6xl text-neon-pink/50"></i>
+                            <div class="absolute inset-0 bg-cyber-dark/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                <button class="cyber-button bg-gradient-to-r from-neon-pink to-neon-blue px-6 py-3 rounded-full font-semibold" onclick="openModal('project3')">
+                                    View Details
+                                </button>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="px-3 py-1 bg-neon-pink/20 text-neon-pink text-xs rounded-full">Funnel</span>
+                                <span class="px-3 py-1 bg-neon-blue/20 text-neon-blue text-xs rounded-full">Lead Gen</span>
+                            </div>
+                            <h3 class="text-xl font-space font-bold mb-2 text-neon-pink">SaaS Lead Generation</h3>
+                            <p class="text-gray-300 mb-4">High-converting lead generation funnel for B2B SaaS company with multi-step qualification process.</p>
+                            <div class="flex justify-between items-center">
+                                <div class="text-sm text-gray-400">
+                                    <i class="fas fa-percentage mr-2"></i>32% conversion rate
+                                </div>
+                                <div class="text-sm text-neon-pink font-semibold">2023</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 4: Multi-Platform Integration -->
+                <div class="portfolio-item automation" data-category="automation">
+                    <div class="bg-cyber-gray border border-neon-blue/20 rounded-xl overflow-hidden hover:border-neon-blue/60 transition-all duration-300 group">
+                        <div class="aspect-video bg-gradient-to-br from-neon-blue/20 to-neon-purple/20 flex items-center justify-center relative overflow-hidden">
+                            <i class="fas fa-link text-6xl text-neon-blue/50"></i>
+                            <div class="absolute inset-0 bg-cyber-dark/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                <button class="cyber-button bg-gradient-to-r from-neon-blue to-neon-purple px-6 py-3 rounded-full font-semibold" onclick="openModal('project4')">
+                                    View Details
+                                </button>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="px-3 py-1 bg-neon-blue/20 text-neon-blue text-xs rounded-full">Make</span>
+                                <span class="px-3 py-1 bg-neon-purple/20 text-neon-purple text-xs rounded-full">Integration</span>
+                            </div>
+                            <h3 class="text-xl font-space font-bold mb-2 text-neon-blue">Multi-Platform Sync</h3>
+                            <p class="text-gray-300 mb-4">Complex integration connecting CRM, email marketing, e-commerce, and accounting platforms using Make.</p>
+                            <div class="flex justify-between items-center">
+                                <div class="text-sm text-gray-400">
+                                    <i class="fas fa-sync mr-2"></i>12 platforms connected
+                                </div>
+                                <div class="text-sm text-neon-blue font-semibold">2024</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 5: Real Estate Automation -->
+                <div class="portfolio-item gohighlevel automation" data-category="gohighlevel automation">
+                    <div class="bg-cyber-gray border border-neon-purple/20 rounded-xl overflow-hidden hover:border-neon-purple/60 transition-all duration-300 group">
+                        <div class="aspect-video bg-gradient-to-br from-neon-purple/20 to-neon-pink/20 flex items-center justify-center relative overflow-hidden">
+                            <i class="fas fa-home text-6xl text-neon-purple/50"></i>
+                            <div class="absolute inset-0 bg-cyber-dark/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                <button class="cyber-button bg-gradient-to-r from-neon-purple to-neon-pink px-6 py-3 rounded-full font-semibold" onclick="openModal('project5')">
+                                    View Details
+                                </button>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="px-3 py-1 bg-neon-purple/20 text-neon-purple text-xs rounded-full">GoHighLevel</span>
+                                <span class="px-3 py-1 bg-neon-pink/20 text-neon-pink text-xs rounded-full">Real Estate</span>
+                            </div>
+                            <h3 class="text-xl font-space font-bold mb-2 text-neon-purple">Real Estate Pipeline</h3>
+                            <p class="text-gray-300 mb-4">Automated lead nurturing and follow-up system for real estate agents, including SMS and email sequences.</p>
+                            <div class="flex justify-between items-center">
+                                <div class="text-sm text-gray-400">
+                                    <i class="fas fa-handshake mr-2"></i>85% follow-up rate
+                                </div>
+                                <div class="text-sm text-neon-purple font-semibold">2023</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 6: n8n Custom Workflow -->
+                <div class="portfolio-item automation" data-category="automation">
+                    <div class="bg-cyber-gray border border-neon-pink/20 rounded-xl overflow-hidden hover:border-neon-pink/60 transition-all duration-300 group">
+                        <div class="aspect-video bg-gradient-to-br from-neon-pink/20 to-neon-blue/20 flex items-center justify-center relative overflow-hidden">
+                            <i class="fas fa-project-diagram text-6xl text-neon-pink/50"></i>
+                            <div class="absolute inset-0 bg-cyber-dark/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                <button class="cyber-button bg-gradient-to-r from-neon-pink to-neon-blue px-6 py-3 rounded-full font-semibold" onclick="openModal('project6')">
+                                    View Details
+                                </button>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="px-3 py-1 bg-neon-pink/20 text-neon-pink text-xs rounded-full">n8n</span>
+                                <span class="px-3 py-1 bg-neon-blue/20 text-neon-blue text-xs rounded-full">Custom</span>
+                            </div>
+                            <h3 class="text-xl font-space font-bold mb-2 text-neon-pink">Data Processing Pipeline</h3>
+                            <p class="text-gray-300 mb-4">Custom n8n workflow for processing and analyzing customer data from multiple sources with advanced filtering.</p>
+                            <div class="flex justify-between items-center">
+                                <div class="text-sm text-gray-400">
+                                    <i class="fas fa-database mr-2"></i>10K+ records/day
+                                </div>
+                                <div class="text-sm text-neon-pink font-semibold">2024</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Website Building Skills Section -->
+    <section id="skills" class="py-20 bg-gradient-to-r from-neon-blue/5 via-cyber-dark to-neon-purple/5 scroll-mt-24">
+        <div class="container mx-auto px-6">
+            <!-- Section Header -->
+            <div class="text-center mb-12">
+                <div class="inline-flex items-center gap-3 mb-4">
+                    <i class="fas fa-screwdriver-wrench text-3xl text-neon-blue"></i>
+                    <h2 class="text-4xl md:text-5xl font-space font-bold">
+                        <span class="text-neon-blue">Website</span> <span class="text-gradient bg-gradient-to-r from-neon-purple to-neon-pink bg-clip-text text-transparent">Building Skills</span>
+                    </h2>
+                </div>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                    Everything I use to plan, design, build, launch and grow a website
+                </p>
+            </div>
+
+            <!-- Skill Filters (rendered by js/skills.js) -->
+            <div id="skills-filters" class="flex flex-wrap justify-center gap-3 mb-12"></div>
+
+            <!-- Skill Cards (rendered by js/skills.js) -->
+            <div id="skills-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+        </div>
+    </section>
+
+    <!-- Professional Excellence -->
+    <section class="py-20">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <!-- Content -->
+                <div class="space-y-6">
+                    <h2 class="text-4xl font-space font-bold mb-6">
+                        <span class="text-gradient bg-gradient-to-r from-neon-blue to-neon-purple bg-clip-text text-transparent">
+                            Professional Excellence
+                        </span>
+                    </h2>
+
+                    <p class="text-lg text-gray-300 leading-relaxed">
+                        With a dedicated approach to each project, I ensure that every automation solution is tailored to your specific business needs. My commitment to excellence has earned the trust of businesses across various industries.
+                    </p>
+
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-8 h-8 bg-neon-blue rounded-full flex items-center justify-center">
+                                <i class="fas fa-check text-white text-sm"></i>
+                            </div>
+                            <span class="text-gray-300">Certified GoHighLevel Expert</span>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="w-8 h-8 bg-neon-purple rounded-full flex items-center justify-center">
+                                <i class="fas fa-check text-white text-sm"></i>
+                            </div>
+                            <span class="text-gray-300">Advanced Automation Specialist</span>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="w-8 h-8 bg-neon-pink rounded-full flex items-center justify-center">
+                                <i class="fas fa-check text-white text-sm"></i>
+                            </div>
+                            <span class="text-gray-300">5+ Years Experience</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Professional Image -->
+                <div class="text-center">
+                    <div class="inline-block relative">
+                        <div class="w-80 h-80 lg:w-96 lg:h-96 rounded-xl bg-gradient-to-r from-neon-blue via-neon-purple to-neon-pink p-1">
+                            <div class="w-full h-full rounded-xl overflow-hidden">
+                                <img src="https://ideogram.ai/assets/image/lossless/response/6EAjPLOzRtG8L5aMfnI5Zg" alt="Vincent Lancin - Professional Excellence" class="w-full h-full object-cover">
+                            </div>
+                        </div>
+                        <!-- Achievement badges -->
+                        <div class="absolute -top-4 -right-4 w-12 h-12 bg-neon-blue rounded-full flex items-center justify-center border-4 border-cyber-dark">
+                            <i class="fas fa-award text-white"></i>
+                        </div>
+                        <div class="absolute -bottom-4 -left-4 w-12 h-12 bg-neon-purple rounded-full flex items-center justify-center border-4 border-cyber-dark">
+                            <i class="fas fa-star text-white"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-20 bg-cyber-gray/50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-space font-bold mb-6">
+                    Client <span class="text-gradient bg-gradient-to-r from-neon-blue to-neon-purple bg-clip-text text-transparent">Testimonials</span>
+                </h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                    What my clients say about working with me
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="bg-cyber-gray border border-neon-blue/20 rounded-xl p-8 hover:border-neon-blue/60 transition-all duration-300">
+                    <div class="mb-6">
+                        <div class="flex text-neon-blue text-lg mb-4">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="text-gray-300 italic mb-4">"The automation system completely transformed our lead management process. We went from manually processing leads to having everything automated and optimized."</p>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-gradient-to-r from-neon-blue to-neon-purple rounded-full flex items-center justify-center mr-4">
+                            <i class="fas fa-user text-white"></i>
+                        </div>
+                        <div>
+                            <div class="font-semibold text-neon-blue">Sarah Johnson</div>
+                            <div class="text-sm text-gray-400">Marketing Director</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="bg-cyber-gray border border-neon-purple/20 rounded-xl p-8 hover:border-neon-purple/60 transition-all duration-300">
+                    <div class="mb-6">
+                        <div class="flex text-neon-purple text-lg mb-4">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="text-gray-300 italic mb-4">"Working with this GoHighLevel specialist was the best decision for our agency. The funnel conversion rates increased by 300% within the first month."</p>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-gradient-to-r from-neon-purple to-neon-pink rounded-full flex items-center justify-center mr-4">
+                            <i class="fas fa-user text-white"></i>
+                        </div>
+                        <div>
+                            <div class="font-semibold text-neon-purple">Mike Chen</div>
+                            <div class="text-sm text-gray-400">Agency Owner</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="bg-cyber-gray border border-neon-pink/20 rounded-xl p-8 hover:border-neon-pink/60 transition-all duration-300">
+                    <div class="mb-6">
+                        <div class="flex text-neon-pink text-lg mb-4">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="text-gray-300 italic mb-4">"The level of expertise and attention to detail is outstanding. Our complex integrations work flawlessly and have saved us countless hours every week."</p>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-gradient-to-r from-neon-pink to-neon-blue rounded-full flex items-center justify-center mr-4">
+                            <i class="fas fa-user text-white"></i>
+                        </div>
+                        <div>
+                            <div class="font-semibold text-neon-pink">Emma Rodriguez</div>
+                            <div class="text-sm text-gray-400">E-commerce Manager</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-gradient-to-r from-neon-blue/10 via-neon-purple/10 to-neon-pink/10">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-4xl md:text-5xl font-space font-bold mb-6">
+                Ready to <span class="text-gradient bg-gradient-to-r from-neon-blue to-neon-purple bg-clip-text text-transparent">Scale</span> Your Business?
+            </h2>
+            <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+                Let's discuss how I can help you achieve similar results with custom automation solutions.
+            </p>
+            <a href="contact.html" class="cyber-button bg-gradient-to-r from-neon-blue to-neon-purple hover:from-neon-purple hover:to-neon-pink transition-all duration-300 px-8 py-4 rounded-full text-white font-semibold text-lg">
+                Start Your Project
+            </a>
+        </div>
+    </section>
+
+    <!-- Project Modals -->
+    <div id="modal-overlay" class="fixed inset-0 bg-cyber-dark/80 backdrop-blur-lg z-50 hidden">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div id="modal-content" class="bg-cyber-gray border border-neon-blue/40 rounded-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+                <!-- Modal content will be dynamically inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-cyber-dark border-t border-neon-blue/20 py-12">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <div class="text-2xl font-space font-bold mb-4">
+                        <span class="text-neon-blue">Vincent</span><span class="text-white">Lancin</span>
+                    </div>
+                    <p class="text-gray-400">
+                        Transforming businesses through intelligent automation and high-converting funnels.
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-semibold mb-4 text-neon-blue">Quick Links</h4>
+                    <div class="space-y-2">
+                        <a href="index.html" class="block text-gray-400 hover:text-neon-blue transition-colors">Home</a>
+                        <a href="about.html" class="block text-gray-400 hover:text-neon-blue transition-colors">About</a>
+                        <a href="services.html" class="block text-gray-400 hover:text-neon-blue transition-colors">Services</a>
+                        <a href="portfolio.html" class="block text-gray-400 hover:text-neon-blue transition-colors">Portfolio</a>
+                        <a href="contact.html" class="block text-gray-400 hover:text-neon-blue transition-colors">Contact</a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-semibold mb-4 text-neon-purple">Connect</h4>
+                    <div class="flex space-x-4">
+                        <a href="https://linkedin.com/in/vincentlancin" target="_blank" class="text-gray-400 hover:text-neon-blue transition-colors text-xl">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="mailto:virtualtechvincent@gmail.com" class="text-gray-400 hover:text-neon-blue transition-colors text-xl">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 Vincent Lancin. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+    <script src="js/portfolio.js"></script>
+    <script src="js/skills.js"></script>
+
+    <!-- GoHighLevel Carousel JavaScript -->
+    <script>
+        // Enhanced carousel functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const carouselContainer = document.querySelector('.ghl-carousel-container');
+            const carouselTrack = document.querySelector('.ghl-carousel-track');
+            const carouselSlides = document.querySelectorAll('.ghl-carousel-slide img');
+
+            if (carouselContainer && carouselTrack) {
+                console.log('GoHighLevel carousel initialized with', carouselSlides.length, 'slides');
+
+                // Handle image loading with enhanced clarity
+                carouselSlides.forEach((img, index) => {
+                    // Set initial opacity for smooth loading
+                    img.style.opacity = '0';
+
+                    img.addEventListener('load', function() {
+                        this.style.opacity = '1';
+                        this.classList.add('loaded');
+                        console.log('Image loaded successfully:', index + 1);
+                    });
+
+                    img.addEventListener('error', function() {
+                        console.log('Image failed to load:', this.src);
+                        // Create a high-quality placeholder
+                        const placeholder = document.createElement('div');
+                        placeholder.className = 'w-full h-full bg-gradient-to-br from-neon-purple/20 to-neon-pink/20 flex items-center justify-center image-placeholder';
+                        placeholder.innerHTML = `
+                            <div class="text-center">
+                                <i class="fas fa-image text-4xl text-neon-purple/50 mb-2"></i>
+                                <div class="text-xs text-neon-purple/70">Screenshot ${index + 1}</div>
+                            </div>
+                        `;
+                        this.parentNode.replaceChild(placeholder, this);
+                    });
+
+                    // Force image reload if needed
+                    if (img.complete && img.naturalHeight === 0) {
+                        img.src = img.src + '?t=' + Date.now();
+                    }
+                });
+
+                // Add click to pause/resume functionality
+                carouselContainer.addEventListener('click', function(e) {
+                    if (!e.target.closest('button')) {
+                        const track = this.querySelector('.ghl-carousel-track');
+                        if (track.style.animationPlayState === 'paused') {
+                            track.style.animationPlayState = 'running';
+                            console.log('Carousel resumed');
+                        } else {
+                            track.style.animationPlayState = 'paused';
+                            console.log('Carousel paused');
+                        }
+                    }
+                });
+
+                // Preload images for better performance
+                carouselSlides.forEach((img, index) => {
+                    if (img.loading !== 'lazy') {
+                        img.loading = 'eager';
+                    }
+                });
+
+                // Smooth restart when animation completes
+                carouselTrack.addEventListener('animationiteration', function() {
+                    console.log('Carousel completed one cycle');
+                });
+            }
+
+            // Initialize Automation Carousel
+            const automationContainer = document.querySelector('.automation-carousel-container');
+            const automationTrack = document.querySelector('.automation-carousel-track');
+            const automationSlides = document.querySelectorAll('.automation-carousel-slide');
+            const prevBtn = document.querySelector('.carousel-nav-prev');
+            const nextBtn = document.querySelector('.carousel-nav-next');
+
+            if (automationContainer && automationTrack) {
+                console.log('Automation carousel initialized with', automationSlides.length, 'slides');
+
+                // Create infinite loop by duplicating slides
+                function createInfiniteLoop() {
+                    const originalSlides = Array.from(automationSlides);
+
+                    // Clone all slides and append them for seamless loop
+                    originalSlides.forEach(slide => {
+                        const clone = slide.cloneNode(true);
+                        automationTrack.appendChild(clone);
+                    });
+
+                    // Add another set for extra smoothness
+                    originalSlides.forEach(slide => {
+                        const clone = slide.cloneNode(true);
+                        automationTrack.appendChild(clone);
+                    });
+                }
+
+                createInfiniteLoop();
+
+                // Variables for manual navigation
+                let currentTranslate = 0;
+                let isAnimationPaused = false;
+                let isDragging = false;
+                let startX = 0;
+                let currentX = 0;
+
+                // Handle image loading
+                const allImages = automationTrack.querySelectorAll('img');
+                allImages.forEach((img, index) => {
+                    img.addEventListener('load', function() {
+                        console.log('Automation image loaded:', index + 1);
+                    });
+
+                    img.addEventListener('error', function() {
+                        console.log('Automation image failed to load:', this.src);
+                        // Create placeholder
+                        const placeholder = document.createElement('div');
+                        placeholder.className = 'w-full h-full bg-gradient-to-br from-neon-purple/20 to-neon-blue/20 flex items-center justify-center';
+                        placeholder.innerHTML = `
+                            <div class="text-center text-white">
+                                <i class="fas fa-cogs text-4xl text-neon-purple/70 mb-2"></i>
+                                <div class="text-sm">Automation ${index + 1}</div>
+                            </div>
+                        `;
+                        this.parentNode.replaceChild(placeholder, this);
+                    });
+                });
+
+                // Navigation functionality
+                function moveSlide(direction) {
+                    const slideWidth = 520; // 500px + 20px margin
+
+                    if (direction === 'next') {
+                        currentTranslate -= slideWidth;
+                    } else {
+                        currentTranslate += slideWidth;
+                    }
+
+                    automationTrack.style.transform = `translateX(${currentTranslate}px)`;
+
+                    // Reset position when needed for infinite effect
+                    setTimeout(() => {
+                        const maxTranslate = -slideWidth * automationSlides.length;
+                        if (currentTranslate <= maxTranslate) {
+                            currentTranslate = 0;
+                            automationTrack.style.transition = 'none';
+                            automationTrack.style.transform = `translateX(${currentTranslate}px)`;
+                            setTimeout(() => {
+                                automationTrack.style.transition = 'transform 0.3s ease-out';
+                            }, 50);
+                        } else if (currentTranslate > 0) {
+                            currentTranslate = maxTranslate + slideWidth;
+                            automationTrack.style.transition = 'none';
+                            automationTrack.style.transform = `translateX(${currentTranslate}px)`;
+                            setTimeout(() => {
+                                automationTrack.style.transition = 'transform 0.3s ease-out';
+                            }, 50);
+                        }
+                    }, 300);
+                }
+
+                // Arrow navigation
+                if (prevBtn && nextBtn) {
+                    prevBtn.addEventListener('click', () => moveSlide('prev'));
+                    nextBtn.addEventListener('click', () => moveSlide('next'));
+                }
+
+                // Hover to pause/resume
+                automationContainer.addEventListener('mouseenter', function() {
+                    automationTrack.style.animationPlayState = 'paused';
+                    isAnimationPaused = true;
+                });
+
+                automationContainer.addEventListener('mouseleave', function() {
+                    if (!isDragging) {
+                        automationTrack.style.animationPlayState = 'running';
+                        isAnimationPaused = false;
+                    }
+                });
+
+                // Touch/Mouse drag functionality
+                function startDrag(e) {
+                    isDragging = true;
+                    startX = e.type === 'mousedown' ? e.clientX : e.touches[0].clientX;
+                    automationTrack.style.animationPlayState = 'paused';
+                    automationTrack.style.transition = 'none';
+                }
+
+                function drag(e) {
+                    if (!isDragging) return;
+                    e.preventDefault();
+
+                    currentX = e.type === 'mousemove' ? e.clientX : e.touches[0].clientX;
+                    const deltaX = currentX - startX;
+
+                    automationTrack.style.transform = `translateX(${currentTranslate + deltaX}px)`;
+                }
+
+                function endDrag() {
+                    if (!isDragging) return;
+
+                    isDragging = false;
+                    const deltaX = currentX - startX;
+                    const threshold = 50;
+
+                    automationTrack.style.transition = 'transform 0.3s ease-out';
+
+                    if (Math.abs(deltaX) > threshold) {
+                        if (deltaX > 0) {
+                            moveSlide('prev');
+                        } else {
+                            moveSlide('next');
+                        }
+                    } else {
+                        automationTrack.style.transform = `translateX(${currentTranslate}px)`;
+                    }
+
+                    setTimeout(() => {
+                        if (!isAnimationPaused) {
+                            automationTrack.style.animationPlayState = 'running';
+                        }
+                    }, 300);
+                }
+
+                // Mouse events
+                automationContainer.addEventListener('mousedown', startDrag);
+                document.addEventListener('mousemove', drag);
+                document.addEventListener('mouseup', endDrag);
+
+                // Touch events
+                automationContainer.addEventListener('touchstart', startDrag, { passive: false });
+                document.addEventListener('touchmove', drag, { passive: false });
+                document.addEventListener('touchend', endDrag);
+
+                // Prevent image dragging
+                allImages.forEach(img => {
+                    img.addEventListener('dragstart', e => e.preventDefault());
+                });
+
+                console.log('Automation carousel with drag/swipe support initialized');
+            }
+
+            // Initialize Websites Carousel
+            const websitesContainer = document.querySelector('.websites-carousel-container');
+            const websitesTrack = document.querySelector('.websites-carousel-track');
+            const websitesSlides = document.querySelectorAll('.websites-carousel-slide');
+            const websitesPrevBtn = document.querySelector('.websites-nav-prev');
+            const websitesNextBtn = document.querySelector('.websites-nav-next');
+
+            if (websitesContainer && websitesTrack) {
+                console.log('Websites carousel initialized with', websitesSlides.length, 'slides');
+
+                // Create infinite loop for websites carousel
+                function createWebsitesInfiniteLoop() {
+                    const originalSlides = Array.from(websitesSlides);
+
+                    // Clone all slides and append them for seamless loop
+                    originalSlides.forEach(slide => {
+                        const clone = slide.cloneNode(true);
+                        websitesTrack.appendChild(clone);
+                    });
+
+                    // Add another set for extra smoothness
+                    originalSlides.forEach(slide => {
+                        const clone = slide.cloneNode(true);
+                        websitesTrack.appendChild(clone);
+                    });
+                }
+
+                createWebsitesInfiniteLoop();
+
+                // Variables for websites manual navigation
+                let websitesCurrentTranslate = 0;
+                let websitesIsAnimationPaused = false;
+                let websitesIsDragging = false;
+                let websitesStartX = 0;
+                let websitesCurrentX = 0;
+
+                // Handle websites image loading
+                const allWebsitesImages = websitesTrack.querySelectorAll('img');
+                allWebsitesImages.forEach((img, index) => {
+                    img.addEventListener('load', function() {
+                        console.log('Website image loaded:', index + 1);
+                    });
+
+                    img.addEventListener('error', function() {
+                        console.log('Website image failed to load:', this.src);
+                        // Create placeholder for websites
+                        const placeholder = document.createElement('div');
+                        placeholder.className = 'w-full h-full bg-gradient-to-br from-neon-blue/20 to-neon-pink/20 flex items-center justify-center';
+                        placeholder.innerHTML = `
+                            <div class="text-center text-white">
+                                <i class="fas fa-globe text-5xl text-neon-blue/70 mb-3"></i>
+                                <div class="text-lg font-semibold mb-1">Website Design ${index + 1}</div>
+                                <div class="text-sm text-gray-400">Landing Page</div>
+                            </div>
+                        `;
+                        this.parentNode.replaceChild(placeholder, this);
+                    });
+                });
+
+                // Navigation functionality for websites
+                function moveWebsitesSlide(direction) {
+                    const slideWidth = 575; // 550px + 25px margin
+
+                    if (direction === 'next') {
+                        websitesCurrentTranslate -= slideWidth;
+                    } else {
+                        websitesCurrentTranslate += slideWidth;
+                    }
+
+                    websitesTrack.style.transform = `translateX(${websitesCurrentTranslate}px)`;
+
+                    // Reset position when needed for infinite effect
+                    setTimeout(() => {
+                        const maxTranslate = -slideWidth * websitesSlides.length;
+                        if (websitesCurrentTranslate <= maxTranslate) {
+                            websitesCurrentTranslate = 0;
+                            websitesTrack.style.transition = 'none';
+                            websitesTrack.style.transform = `translateX(${websitesCurrentTranslate}px)`;
+                            setTimeout(() => {
+                                websitesTrack.style.transition = 'transform 0.3s ease-out';
+                            }, 50);
+                        } else if (websitesCurrentTranslate > 0) {
+                            websitesCurrentTranslate = maxTranslate + slideWidth;
+                            websitesTrack.style.transition = 'none';
+                            websitesTrack.style.transform = `translateX(${websitesCurrentTranslate}px)`;
+                            setTimeout(() => {
+                                websitesTrack.style.transition = 'transform 0.3s ease-out';
+                            }, 50);
+                        }
+                    }, 300);
+                }
+
+                // Arrow navigation for websites
+                if (websitesPrevBtn && websitesNextBtn) {
+                    websitesPrevBtn.addEventListener('click', () => moveWebsitesSlide('prev'));
+                    websitesNextBtn.addEventListener('click', () => moveWebsitesSlide('next'));
+                }
+
+                // Hover to pause/resume for websites
+                websitesContainer.addEventListener('mouseenter', function() {
+                    websitesTrack.style.animationPlayState = 'paused';
+                    websitesIsAnimationPaused = true;
+                });
+
+                websitesContainer.addEventListener('mouseleave', function() {
+                    if (!websitesIsDragging) {
+                        websitesTrack.style.animationPlayState = 'running';
+                        websitesIsAnimationPaused = false;
+                    }
+                });
+
+                // Touch/Mouse drag functionality for websites
+                function startWebsitesDrag(e) {
+                    websitesIsDragging = true;
+                    websitesStartX = e.type === 'mousedown' ? e.clientX : e.touches[0].clientX;
+                    websitesTrack.style.animationPlayState = 'paused';
+                    websitesTrack.style.transition = 'none';
+                }
+
+                function dragWebsites(e) {
+                    if (!websitesIsDragging) return;
+                    e.preventDefault();
+
+                    websitesCurrentX = e.type === 'mousemove' ? e.clientX : e.touches[0].clientX;
+                    const deltaX = websitesCurrentX - websitesStartX;
+
+                    websitesTrack.style.transform = `translateX(${websitesCurrentTranslate + deltaX}px)`;
+                }
+
+                function endWebsitesDrag() {
+                    if (!websitesIsDragging) return;
+
+                    websitesIsDragging = false;
+                    const deltaX = websitesCurrentX - websitesStartX;
+                    const threshold = 60;
+
+                    websitesTrack.style.transition = 'transform 0.3s ease-out';
+
+                    if (Math.abs(deltaX) > threshold) {
+                        if (deltaX > 0) {
+                            moveWebsitesSlide('prev');
+                        } else {
+                            moveWebsitesSlide('next');
+                        }
+                    } else {
+                        websitesTrack.style.transform = `translateX(${websitesCurrentTranslate}px)`;
+                    }
+
+                    setTimeout(() => {
+                        if (!websitesIsAnimationPaused) {
+                            websitesTrack.style.animationPlayState = 'running';
+                        }
+                    }, 300);
+                }
+
+                // Mouse events for websites
+                websitesContainer.addEventListener('mousedown', startWebsitesDrag);
+                document.addEventListener('mousemove', dragWebsites);
+                document.addEventListener('mouseup', endWebsitesDrag);
+
+                // Touch events for websites
+                websitesContainer.addEventListener('touchstart', startWebsitesDrag, { passive: false });
+                document.addEventListener('touchmove', dragWebsites, { passive: false });
+                document.addEventListener('touchend', endWebsitesDrag);
+
+                // Prevent image dragging for websites
+                allWebsitesImages.forEach(img => {
+                    img.addEventListener('dragstart', e => e.preventDefault());
+                });
+
+                console.log('Websites carousel with drag/swipe support initialized');
+            }
+
+            // Initialize Zapier Carousel
+            const zapierContainer = document.querySelector('.zapier-carousel-container');
+            const zapierTrack = document.querySelector('.zapier-carousel-track');
+            const zapierSlides = document.querySelectorAll('.zapier-carousel-slide');
+            const zapierPrevBtn = document.querySelector('.zapier-nav-prev');
+            const zapierNextBtn = document.querySelector('.zapier-nav-next');
+
+            if (zapierContainer && zapierTrack) {
+                console.log('Zapier carousel initialized with', zapierSlides.length, 'slides');
+
+                // Create infinite loop for zapier carousel
+                function createZapierInfiniteLoop() {
+                    const originalSlides = Array.from(zapierSlides);
+
+                    // Clone all slides and append them for seamless loop
+                    originalSlides.forEach(slide => {
+                        const clone = slide.cloneNode(true);
+                        zapierTrack.appendChild(clone);
+                    });
+
+                    // Add another set for extra smoothness
+                    originalSlides.forEach(slide => {
+                        const clone = slide.cloneNode(true);
+                        zapierTrack.appendChild(clone);
+                    });
+                }
+
+                createZapierInfiniteLoop();
+
+                // Variables for zapier manual navigation
+                let zapierCurrentTranslate = 0;
+                let zapierIsAnimationPaused = false;
+                let zapierIsDragging = false;
+                let zapierStartX = 0;
+                let zapierCurrentX = 0;
+
+                // Handle zapier image loading
+                const allZapierImages = zapierTrack.querySelectorAll('img');
+                allZapierImages.forEach((img, index) => {
+                    img.addEventListener('load', function() {
+                        console.log('Zapier image loaded:', index + 1);
+                    });
+
+                    img.addEventListener('error', function() {
+                        console.log('Zapier image failed to load:', this.src);
+                        // Create placeholder for zapier
+                        const placeholder = document.createElement('div');
+                        placeholder.className = 'w-full h-full bg-gradient-to-br from-neon-pink/20 to-neon-purple/20 flex items-center justify-center';
+                        placeholder.innerHTML = `
+                            <div class="text-center text-white">
+                                <i class="fas fa-bolt text-5xl text-neon-pink/70 mb-3"></i>
+                                <div class="text-lg font-semibold mb-1">Zapier Automation ${index + 1}</div>
+                                <div class="text-sm text-gray-400">Workflow Integration</div>
+                            </div>
+                        `;
+                        this.parentNode.replaceChild(placeholder, this);
+                    });
+                });
+
+                // Navigation functionality for zapier
+                function moveZapierSlide(direction) {
+                    const slideWidth = 542; // 520px + 22px margin
+
+                    if (direction === 'next') {
+                        zapierCurrentTranslate -= slideWidth;
+                    } else {
+                        zapierCurrentTranslate += slideWidth;
+                    }
+
+                    zapierTrack.style.transform = `translateX(${zapierCurrentTranslate}px)`;
+
+                    // Reset position when needed for infinite effect
+                    setTimeout(() => {
+                        const maxTranslate = -slideWidth * zapierSlides.length;
+                        if (zapierCurrentTranslate <= maxTranslate) {
+                            zapierCurrentTranslate = 0;
+                            zapierTrack.style.transition = 'none';
+                            zapierTrack.style.transform = `translateX(${zapierCurrentTranslate}px)`;
+                            setTimeout(() => {
+                                zapierTrack.style.transition = 'transform 0.3s ease-out';
+                            }, 50);
+                        } else if (zapierCurrentTranslate > 0) {
+                            zapierCurrentTranslate = maxTranslate + slideWidth;
+                            zapierTrack.style.transition = 'none';
+                            zapierTrack.style.transform = `translateX(${zapierCurrentTranslate}px)`;
+                            setTimeout(() => {
+                                zapierTrack.style.transition = 'transform 0.3s ease-out';
+                            }, 50);
+                        }
+                    }, 300);
+                }
+
+                // Arrow navigation for zapier
+                if (zapierPrevBtn && zapierNextBtn) {
+                    zapierPrevBtn.addEventListener('click', () => moveZapierSlide('prev'));
+                    zapierNextBtn.addEventListener('click', () => moveZapierSlide('next'));
+                }
+
+                // Hover to pause/resume for zapier
+                zapierContainer.addEventListener('mouseenter', function() {
+                    zapierTrack.style.animationPlayState = 'paused';
+                    zapierIsAnimationPaused = true;
+                });
+
+                zapierContainer.addEventListener('mouseleave', function() {
+                    if (!zapierIsDragging) {
+                        zapierTrack.style.animationPlayState = 'running';
+                        zapierIsAnimationPaused = false;
+                    }
+                });
+
+                // Touch/Mouse drag functionality for zapier
+                function startZapierDrag(e) {
+                    zapierIsDragging = true;
+                    zapierStartX = e.type === 'mousedown' ? e.clientX : e.touches[0].clientX;
+                    zapierTrack.style.animationPlayState = 'paused';
+                    zapierTrack.style.transition = 'none';
+                }
+
+                function dragZapier(e) {
+                    if (!zapierIsDragging) return;
+                    e.preventDefault();
+
+                    zapierCurrentX = e.type === 'mousemove' ? e.clientX : e.touches[0].clientX;
+                    const deltaX = zapierCurrentX - zapierStartX;
+
+                    zapierTrack.style.transform = `translateX(${zapierCurrentTranslate + deltaX}px)`;
+                }
+
+                function endZapierDrag() {
+                    if (!zapierIsDragging) return;
+
+                    zapierIsDragging = false;
+                    const deltaX = zapierCurrentX - zapierStartX;
+                    const threshold = 55;
+
+                    zapierTrack.style.transition = 'transform 0.3s ease-out';
+
+                    if (Math.abs(deltaX) > threshold) {
+                        if (deltaX > 0) {
+                            moveZapierSlide('prev');
+                        } else {
+                            moveZapierSlide('next');
+                        }
+                    } else {
+                        zapierTrack.style.transform = `translateX(${zapierCurrentTranslate}px)`;
+                    }
+
+                    setTimeout(() => {
+                        if (!zapierIsAnimationPaused) {
+                            zapierTrack.style.animationPlayState = 'running';
+                        }
+                    }, 300);
+                }
+
+                // Mouse events for zapier
+                zapierContainer.addEventListener('mousedown', startZapierDrag);
+                document.addEventListener('mousemove', dragZapier);
+                document.addEventListener('mouseup', endZapierDrag);
+
+                // Touch events for zapier
+                zapierContainer.addEventListener('touchstart', startZapierDrag, { passive: false });
+                document.addEventListener('touchmove', dragZapier, { passive: false });
+                document.addEventListener('touchend', endZapierDrag);
+
+                // Prevent image dragging for zapier
+                allZapierImages.forEach(img => {
+                    img.addEventListener('dragstart', e => e.preventDefault());
+                });
+
+                console.log('Zapier carousel with drag/swipe support initialized');
+            }
+        });
+    </script>
+</body>
+</html>
