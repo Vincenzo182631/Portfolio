@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vincenzo — Web Developer Portfolio</title>
+  <meta name="description" content="Portfolio of Vincenzo: website design, development, SEO and deployment skills.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="nav">
+    <a class="logo" href="#top">Vincenzo<span>.</span></a>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <p class="eyebrow">Web Designer &amp; Developer</p>
+      <h1>I plan, design, build and launch websites end to end.</h1>
+      <p class="lead">From strategy and wireframes to code, SEO, hosting and analytics — every skill a modern website needs.</p>
+      <div class="cta">
+        <a class="btn primary" href="#skills">See my skills</a>
+        <a class="btn" href="#contact">Get in touch</a>
+      </div>
+    </section>
+
+    <section id="about" class="section">
+      <h2>About</h2>
+      <p>I build fast, accessible, search-friendly websites and web apps. I handle the full lifecycle: discovery, design, front-end and back-end development, content, launch and ongoing optimization.</p>
+    </section>
+
+    <section id="skills" class="section">
+      <h2>Skills</h2>
+      <p class="muted">Everything that goes into building a website. Filter by area:</p>
+      <div id="filters" class="filters" role="tablist"></div>
+      <div id="skills-grid" class="grid"></div>
+    </section>
+
+    <section id="projects" class="section">
+      <h2>Projects</h2>
+      <article class="card project">
+        <h3>VA LeadFinder</h3>
+        <p>Lead discovery web app for virtual assistants — React + TypeScript front end, Supabase back end, automated tests with Playwright.</p>
+        <ul class="tags"><li>React</li><li>TypeScript</li><li>Supabase</li><li>Playwright</li></ul>
+      </article>
+    </section>
+
+    <section id="contact" class="section">
+      <h2>Contact</h2>
+      <p>Have a website in mind? Let's talk.</p>
+      <a class="btn primary" href="mailto:info@lorrainetravel.com">Email me</a>
+    </section>
+  </main>
+
+  <footer class="footer">© <span id="year"></span> Vincenzo. All rights reserved.</footer>
+  <script src="script.js"></script>
+</body>
+</html>
