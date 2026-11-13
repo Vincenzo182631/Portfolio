@@ -1,0 +1,51 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Crumbs from '../../components/Crumbs.astro';
+import Plate from '../../components/Plate.astro';
+import { breadcrumbSchema } from '../../data/schema';
+import { getCollection } from 'astro:content';
+const trail = [{ name: 'Home', path: '/' }, { name: 'Work', path: '/work/' }];
+const work = (await getCollection('work')).sort((a, b) => a.data.order - b.data.order);
+const lab = [
+  { title: 'Lead generation tools', text: 'Custom tools that collect and qualify leads before they reach the CRM.', status: 'In development' },
+  { title: 'Voice agent systems', text: 'Real-time voice agents built with ElevenLabs and LiveKit.', status: 'Prototype' },
+  { title: 'Workflow orchestration', text: 'n8n and Cloudflare Workers flows that connect CRMs, forms and messaging.', status: 'In development' },
+  { title: 'Internal productivity systems', text: 'Small tools that remove repetitive manual steps from my own client work.', status: 'Concept' },
+];
+---
+<BaseLayout
+  title="Work: SEO, website and automation case studies"
+  description="Case studies in hospitality, travel, festival transport and online education: structured data, website rebuilds, GoHighLevel workflows and AI prototypes."
+  jsonLd={[breadcrumbSchema(Astro.site!, trail)]}
+>
+  <div class="doc-block"><div class="wrap">
+    <Crumbs trail={trail} />
+    <header class="doc-head">
+      <h1>Selected work in search, websites and automation</h1>
+      <p class="t-lead">Each case study says what the problem was, what I worked on myself and how it was built. The diagrams are my own drawings of each system. I do not publish client figures I cannot verify.</p>
+    </header>
+  </div></div>
+
+  <div class="doc-block"><div class="wrap">
+    <h2>Case studies</h2>
+    <div class="grid" style="row-gap: var(--s-8)">
+      {work.map((w, i) => (
+        <a class="work-card span-6" href={`/work/${w.id}/`}>
+          <Plate client={w.data.client} status={w.data.status} industry={w.data.industry} flow={w.data.flow} ink={i % 3 === 0} ratio="16 / 9" />
+          <p class="t-label muted">{w.data.client}</p>
+          <h3 style="font: var(--display-weight) var(--t-h3)/1.2 var(--font-display); letter-spacing: var(--display-tracking)">{w.data.title}</h3>
+          <p>{w.data.summary}</p>
+          <span class="link">Read the case study</span>
+        </a>
+      ))}
+    </div>
+  </div></div>
+
+  <div class="doc-block doc-block--surface" id="lab"><div class="wrap">
+    <h2>Automation and product lab</h2>
+    <p class="t-lead measure" style="margin-bottom: var(--s-6)">Ongoing technical work that is not client-ready. Each item is labelled with its real status.</p>
+    <ul class="rows">
+      {lab.map((l) => <li><span class="rows__name">{l.title}</span><p>{l.text}</p><span class="rows__value">{l.status}</span></li>)}
+    </ul>
+  </div></div>
+</BaseLayout>

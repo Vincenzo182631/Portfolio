@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Crumbs from '../../components/Crumbs.astro';
+import { breadcrumbSchema } from '../../data/schema';
+import { readingTime, formatDate } from '../../data/util';
+import { getCollection } from 'astro:content';
+const trail = [{ name: 'Home', path: '/' }, { name: 'Insights', path: '/insights/' }];
+const posts = (await getCollection('insights', (p) => !p.data.draft)).sort((a, b) => +b.data.publishDate - +a.data.publishDate);
+const categories = [...new Set(posts.map((p) => p.data.category))];
+---
+<BaseLayout
+  title="Insights: technical SEO, AEO, GEO, automation"
+  description="Practical articles on technical SEO, answer and generative engine optimization, and GoHighLevel automation, written from implementation work."
+  jsonLd={[breadcrumbSchema(Astro.site!, trail)]}
+>
+  <div class="doc-block"><div class="wrap">
+    <Crumbs trail={trail} />
+    <header class="doc-head">
+      <h1>Insights on SEO, websites and automation</h1>
+      <p class="t-lead">Notes from implementation work: what I check, what I build and why. Written for business owners and the people who run their websites.</p>
+      <ul class="tags" aria-label="Categories">{categories.map((c) => <li>{c}</li>)}</ul>
+    </header>
+  </div></div>
+  <div class="doc-block"><div class="wrap">
+    <h2>All articles</h2>
+    <div class="grid">
+      {posts.map((p) => (
+        <a class="post-card span-4" href={`/insights/${p.id}/`}>
+          <p class="meta"><span>{p.data.category}</span><span>{readingTime(p.body ?? '')} min read</span></p>
+          <h3>{p.data.title}</h3>
+          <p>{p.data.excerpt}</p>
+          <p class="t-small muted"><time datetime={p.data.publishDate.toISOString()}>{formatDate(p.data.publishDate)}</time></p>
+          <span class="link">Read the article</span>
+        </a>
+      ))}
+    </div>
+  </div></div>
+</BaseLayout>

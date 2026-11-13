@@ -1,0 +1,58 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Crumbs from '../../components/Crumbs.astro';
+import { services } from '../../data/services';
+import { breadcrumbSchema } from '../../data/schema';
+const trail = [{ name: 'Home', path: '/' }, { name: 'Services', path: '/services/' }];
+---
+<BaseLayout
+  title="Technical SEO, website and automation services"
+  description="Four connected services from one specialist: technical SEO with AEO and GEO, website development, workflow automation and GoHighLevel CRM setup."
+  jsonLd={[breadcrumbSchema(Astro.site!, trail)]}
+>
+  <div class="doc-block"><div class="wrap">
+    <Crumbs trail={trail} />
+    <header class="doc-head">
+      <h1>Services for getting found, converting and following up</h1>
+      <p class="t-lead">Technical SEO is where most of my projects start. The website build, the automation and the CRM work exist to make the search work pay off: a page that ranks still needs to load fast, answer the question and hand the lead to a system that follows up.</p>
+    </header>
+  </div></div>
+
+  <div class="doc-block"><div class="wrap">
+    <h2>Technical SEO comes first</h2>
+    <div class="grid grid--top">
+      <div class="span-7 stack-4">
+        <p class="t-lead">{services[0].lead}</p>
+        <p>Many SEO engagements end with an audit and a list of recommendations. I work in the code, so the recommendations get implemented: templates, metadata, structured data, redirects, internal links and page speed.</p>
+        <p><a class="link" href="/services/technical-seo/">See the technical SEO, AEO and GEO service</a></p>
+      </div>
+      <ul class="plain-list span-4 start-9">
+        <li>Technical audits and indexation checks</li>
+        <li>Structured data and JSON-LD</li>
+        <li>On-page SEO and content structure</li>
+        <li>AEO: answer-first content and FAQs</li>
+        <li>GEO: clear, consistent, crawlable information</li>
+      </ul>
+    </div>
+  </div></div>
+
+  <div class="doc-block doc-block--surface"><div class="wrap">
+    <h2>The three services that support it</h2>
+    <ol class="numbered">
+      {services.slice(1).map((s) => (
+        <li><div class="stack-4"><h3><a href={`/services/${s.slug}/`}>{s.name}</a></h3><p class="measure">{s.lead}</p><p><a class="link" href={`/services/${s.slug}/`}>See {s.short.toLowerCase() === 'gohighlevel' ? 'the GoHighLevel' : `the ${s.short.toLowerCase()}`} service</a></p></div></li>
+      ))}
+    </ol>
+  </div></div>
+
+  <div class="doc-block"><div class="wrap">
+    <h2>How the services connect</h2>
+    <ol class="flow-h" style="--n: 4">
+      <li><b>Found</b><span>Technical SEO, AEO and GEO make the page readable and discoverable.</span></li>
+      <li><b>Understood</b><span>The website loads fast and answers the visitor's question.</span></li>
+      <li><b>Captured</b><span>A form or booking creates a contact with its source.</span></li>
+      <li><b>Followed up</b><span>GoHighLevel or an n8n workflow sends the next message on time.</span></li>
+    </ol>
+    <p class="measure" style="margin-top: var(--s-6)">AI integrations are an added capability, not the main offer. I have built conversational and voice prototypes with Tavus, ElevenLabs and LiveKit, described in the <a class="link" href="/work/ai-hotel-concierge/">AI hotel concierge project</a>.</p>
+  </div></div>
+</BaseLayout>

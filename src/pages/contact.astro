@@ -1,0 +1,74 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Crumbs from '../components/Crumbs.astro';
+import Arrow from '../components/Arrow.astro';
+import { breadcrumbSchema } from '../data/schema';
+import { profile } from '../data/profile';
+const trail = [{ name: 'Home', path: '/' }, { name: 'Contact', path: '/contact/' }];
+const turnstileKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
+const serviceOptions = ['Technical SEO / AEO / GEO', 'Website development', 'GoHighLevel', 'Workflow automation', 'AI integration', 'Not sure / Other'];
+const budgets = ['Under $1,000', '$1,000 to $3,000', '$3,000 to $7,500', 'Over $7,500', 'Ongoing monthly work'];
+const mailto = `mailto:${profile.email}?subject=${encodeURIComponent('Project inquiry')}`;
+---
+<BaseLayout
+  title="Contact Vincent Lancin about a project"
+  description="Send a short description of your SEO, website or automation project. Vincent replies by email with questions or a suggested next step."
+  jsonLd={[breadcrumbSchema(Astro.site!, trail)]}
+  close={{ heading: 'Prefer email to a form', line: `Write to ${profile.email} with your website and what you need.`, href: mailto, label: 'Email Vincent' }}
+>
+  <div class="doc-block"><div class="wrap">
+    <Crumbs trail={trail} />
+    <div class="grid grid--top">
+      <div class="span-5 stack-4">
+        <h1 style="font-size: clamp(36px, 4vw, 56px); line-height: 1.05">Discuss a project with Vincent</h1>
+        <p class="t-lead">Tell me what you are trying to fix or build. A few sentences and your website address are enough to start.</p>
+        <h2 class="t-label muted" style="font-family: var(--font-text); font-size: var(--t-label); margin-top: var(--s-5)">What happens next</h2>
+        <ol class="numbered">
+          <li><div><h3>I read your message</h3><p>And look at your website if you sent one.</p></div></li>
+          <li><div><h3>I reply by email</h3><p>With questions, or with what I would do first.</p></div></li>
+          <li><div><h3>We agree a scope</h3><p>Before any work or cost starts.</p></div></li>
+        </ol>
+        <p>For an SEO review, choose "Technical SEO / AEO / GEO" and include the URL. I review the site myself; it is not an automated report.</p>
+        <p>Email works too: <a class="link" href={mailto} data-track="contact-mailto">{profile.email}</a></p>
+        {profile.bookingUrl && <p><a class="link" href={profile.bookingUrl} rel="noopener noreferrer" data-track="contact-booking">Book a call</a></p>}
+      </div>
+      <div class="span-6 start-7 form-panel">
+        <form class="form" data-contact action={mailto} method="post" enctype="text/plain" data-endpoint="/api/contact" data-sent="Your project message is sent. I reply by email." data-failed="The message could not be sent. Please email me directly instead." novalidate>
+          <div class="field--half">
+            <div class="field"><label for="f-name">Name</label>
+              <input id="f-name" name="name" type="text" autocomplete="name" required maxlength="120" aria-describedby="f-name-err">
+              <p class="field__error" id="f-name-err" hidden>Write your name.</p></div>
+            <div class="field"><label for="f-email">Email</label>
+              <input id="f-email" name="email" type="email" autocomplete="email" inputmode="email" required maxlength="200" aria-describedby="f-email-err">
+              <p class="field__error" id="f-email-err" hidden>Write an email address with an @, like name@example.com.</p></div>
+          </div>
+          <div class="field"><label for="f-company">Company or website (optional)</label>
+            <input id="f-company" name="company" type="text" autocomplete="organization" maxlength="200"></div>
+          <div class="field--half">
+            <div class="field"><label for="f-service">Service needed</label>
+              <select id="f-service" name="service" required aria-describedby="f-service-err">
+                <option value="">Choose a service</option>
+                {serviceOptions.map((o) => <option value={o}>{o}</option>)}
+              </select>
+              <p class="field__error" id="f-service-err" hidden>Choose the service closest to what you need.</p></div>
+            <div class="field"><label for="f-budget">Budget range (optional)</label>
+              <select id="f-budget" name="budget">
+                <option value="">Prefer not to say</option>
+                {budgets.map((o) => <option value={o}>{o}</option>)}
+              </select></div>
+          </div>
+          <div class="field"><label for="f-message">Project description</label>
+            <textarea id="f-message" name="message" required minlength="20" maxlength="5000" aria-describedby="f-message-err"></textarea>
+            <p class="field__error" id="f-message-err" hidden>Describe the project in a sentence or two, at least 20 characters.</p></div>
+          <div class="hp" aria-hidden="true"><label for="f-website">Leave this field empty</label><input id="f-website" name="website" type="text" tabindex="-1" autocomplete="off"></div>
+          {turnstileKey && <div class="cf-turnstile" data-sitekey={turnstileKey} data-theme="light"></div>}
+          <div class="btn-row"><button class="btn btn--primary" type="submit">Send project message<Arrow /></button></div>
+          <p class="form__status" role="status" data-form-status></p>
+          <p class="t-small muted">Your details are used only to reply to you. See the <a href="/privacy/" style="text-decoration: underline">privacy note</a>.</p>
+        </form>
+        <noscript><p>The form needs JavaScript. Please email <a href={mailto}>{profile.email}</a> instead.</p></noscript>
+      </div>
+    </div>
+  </div></div>
+  {turnstileKey && <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer slot="head"></script>}
+</BaseLayout>

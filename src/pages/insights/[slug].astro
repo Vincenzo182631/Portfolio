@@ -1,0 +1,73 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Crumbs from '../../components/Crumbs.astro';
+import { breadcrumbSchema, articleSchema } from '../../data/schema';
+import { serviceBySlug } from '../../data/services';
+import { profile } from '../../data/profile';
+import { readingTime, formatDate } from '../../data/util';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('insights', (p) => !p.data.draft);
+  return posts.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const d = entry.data;
+const site = Astro.site!;
+const trail = [{ name: 'Home', path: '/' }, { name: 'Insights', path: '/insights/' }, { name: d.title, path: `/insights/${entry.id}/` }];
+const all = await getCollection('insights', (p) => !p.data.draft);
+const related = d.related.map((id) => all.find((p) => p.id === id)).filter((p) => !!p);
+const relatedServices = d.relatedServices.map((s) => serviceBySlug(s)!);
+---
+<BaseLayout
+  title={d.title}
+  description={d.description}
+  type="article"
+  article={{ published: d.publishDate, modified: d.updatedDate }}
+  jsonLd={[breadcrumbSchema(site, trail), articleSchema(site, { title: d.title, description: d.description, slug: entry.id, published: d.publishDate, modified: d.updatedDate })]}
+  close={{ heading: 'Want this applied to your website', line: 'Send me the URL and what you are trying to fix.', service: relatedServices[0]?.inquiry.value }}
+>
+  <article>
+    <div class="doc-block"><div class="wrap">
+      <Crumbs trail={trail} />
+      <header class="doc-head">
+        <p class="t-label muted">{d.category}</p>
+        <h1>{d.title}</h1>
+        <p class="article-meta">
+          <span>By <a href="/about/" rel="author">{profile.name}</a></span>
+          <span>Published <time datetime={d.publishDate.toISOString()}>{formatDate(d.publishDate)}</time></span>
+          {d.updatedDate && <span>Updated <time datetime={d.updatedDate.toISOString()}>{formatDate(d.updatedDate)}</time></span>}
+          <span>{readingTime(entry.body ?? '')} min read</span>
+        </p>
+      </header>
+    </div></div>
+    <div class="doc-block"><div class="wrap">
+      <div class="grid grid--top">
+        <div class="prose span-8"><Content /></div>
+        <aside class="aside-card span-3 start-10" aria-label="About the author">
+          <h2>Written by</h2>
+          <p><strong>{profile.name}</strong><br>{profile.role}, {profile.location}.</p>
+          <p><a class="link" href="/about/">Read about Vincent</a></p>
+          {relatedServices.length > 0 && <h2>Related services</h2>}
+          {relatedServices.map((s) => <p><a class="link" href={`/services/${s.slug}/`}>{s.short}</a></p>)}
+        </aside>
+      </div>
+    </div></div>
+    {related.length > 0 && (
+      <div class="doc-block doc-block--surface"><div class="wrap">
+        <h2>Related articles</h2>
+        <div class="grid">
+          {related.map((p) => (
+            <a class="post-card span-6" href={`/insights/${p.id}/`} style="background: var(--bg)">
+              <p class="meta"><span>{p.data.category}</span><span>{readingTime(p.body ?? '')} min read</span></p>
+              <h3>{p.data.title}</h3>
+              <p>{p.data.excerpt}</p>
+              <span class="link">Read the article</span>
+            </a>
+          ))}
+        </div>
+      </div></div>
+    )}
+  </article>
+</BaseLayout>

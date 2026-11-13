@@ -1,0 +1,9 @@
+---
+// An original diagram of a project's system. Used where a client screenshot would need permission.
+interface Props { client: string; status: string; industry: string; flow: string[]; ink?: boolean; ratio?: string }
+const { client, status, industry, flow, ink = false, ratio } = Astro.props;
+---
+<div class:list={['plate', { 'plate--ink': ink }]} style={ratio ? `--plate-ratio: ${ratio}` : undefined} role="img" aria-label={`${client}: ${flow.join(', then ')}.`}>
+  <div class="plate__meta" aria-hidden="true"><span>{industry}</span><span>{status}</span></div>
+  <ol class="flowline" aria-hidden="true">{flow.map((f) => <li>{f}</li>)}</ol>
+</div>
