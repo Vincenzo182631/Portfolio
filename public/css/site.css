@@ -242,3 +242,4 @@
   .closing .footer__lede { display: none; }
   .closing .closing__links { gap: var(--s-5); }
 }
+@media (max-width: 639px) { #about .overlap { aspect-ratio: auto; height: 640px; } }
