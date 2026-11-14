@@ -1,0 +1,57 @@
+# Builds and checks the site on every pull request, and deploys it to Cloudflare Pages
+# on every push to the default branch.
+#
+# One-time setup in GitHub > Settings > Secrets and variables > Actions:
+#   Secrets:   CLOUDFLARE_API_TOKEN  (a token with "Cloudflare Pages: Edit")
+#              CLOUDFLARE_ACCOUNT_ID
+#   Variables: SITE_URL        optional, defaults to the pages.dev address below
+#              ALLOW_INDEXING  optional, set to "true" only when the site should be indexed
+name: Build and deploy
+
+on:
+  push:
+    branches: [claude/sharp-brahmagupta-wgpv5k, main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  PAGES_PROJECT: vincent-portfolio
+  SITE_URL: ${{ vars.SITE_URL || 'https://vincent-portfolio-2lj.pages.dev' }}
+  ALLOW_INDEXING: ${{ vars.ALLOW_INDEXING || 'false' }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Type check
+        run: npm run check
+      - name: Build
+        run: npm run build
+      - name: Check internal links
+        run: npm run check:links
+      - name: Check SEO
+        run: npm run check:seo
+      - name: Deploy to Cloudflare Pages
+        if: github.event_name != 'pull_request'
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          if [ -z "$CLOUDFLARE_API_TOKEN" ] || [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then
+            echo "::warning::Cloudflare secrets are not set, so the build was checked but not deployed."
+            exit 0
+          fi
+          npx --yes wrangler@4 pages deploy dist --project-name "$PAGES_PROJECT" --branch main --commit-hash "$GITHUB_SHA"
