@@ -54,4 +54,15 @@ jobs:
             echo "::warning::Cloudflare secrets are not set, so the build was checked but not deployed."
             exit 0
           fi
+          # A secret pasted with a line break or surrounding text cannot be sent as a header.
+          # Keep only the token itself (Cloudflare user tokens start with "cfut_"), or failing
+          # that the first word, and report the shape of what was stored without printing it.
+          lines=$(printf '%s' "$CLOUDFLARE_API_TOKEN" | grep -c '' || true)
+          token=$(printf '%s' "$CLOUDFLARE_API_TOKEN" | tr -s '[:space:]' '\n' | grep -m1 '^cfut_' || true)
+          if [ -z "$token" ]; then token=$(printf '%s' "$CLOUDFLARE_API_TOKEN" | tr -s '[:space:]' '\n' | grep -m1 . || true); fi
+          if [ "$lines" -gt 1 ]; then
+            echo "::warning::CLOUDFLARE_API_TOKEN is stored as $lines lines; using the token found in it (${#token} characters). Re-save the secret as one line to clear this warning."
+          fi
+          export CLOUDFLARE_API_TOKEN="$token"
+          export CLOUDFLARE_ACCOUNT_ID="$(printf '%s' "$CLOUDFLARE_ACCOUNT_ID" | tr -d '[:space:]')"
           npx --yes wrangler@4 pages deploy dist --project-name "$PAGES_PROJECT" --branch main --commit-hash "$GITHUB_SHA"
