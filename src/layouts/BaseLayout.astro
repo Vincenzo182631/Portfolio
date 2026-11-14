@@ -1,0 +1,84 @@
+---
+import Seo from '../components/Seo.astro';
+import Nav from '../components/Nav.astro';
+import Closing from '../components/Closing.astro';
+import { personSchema, websiteSchema } from '../data/schema';
+
+interface Props {
+  title: string;
+  description: string;
+  type?: 'website' | 'article' | 'profile';
+  noindex?: boolean;
+  jsonLd?: Record<string, unknown>[];
+  article?: { published: Date; modified?: Date };
+  close?: { heading?: string; line?: string; service?: string; href?: string; label?: string };
+  moments?: string[];
+  diagram?: boolean;
+  doc?: boolean;
+}
+const { title, description, type, noindex, jsonLd = [], article, close = {}, moments = [], diagram = false, doc = true } = Astro.props;
+const site = Astro.site!;
+const graph = [websiteSchema(site), personSchema(site), ...jsonLd];
+const cfToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN;
+const plausible = import.meta.env.PUBLIC_PLAUSIBLE_DOMAIN;
+---
+<!doctype html>
+<html lang="en" data-type="service" data-radius="soft" data-buttons="arrow" data-motion>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<Seo title={title} description={description} type={type} noindex={noindex} jsonLd={graph} article={article} />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#e8e8e3">
+<meta name="site-kind" content="other">
+<meta name="page-type" content="service">
+<link rel="alternate" type="application/rss+xml" title="Insights by Vincent Lancin" href="/insights/rss.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400..700&family=Figtree:wght@400..600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/system.css">
+<link rel="stylesheet" href="/assets/ui/cards.css">
+<link rel="stylesheet" href="/assets/motion/motion.css">
+<link rel="stylesheet" href="/assets/layout/layout.css">
+<link rel="stylesheet" href="/assets/icons/icon.css">
+{diagram && <link rel="stylesheet" href="/assets/diagrams/diagram.css" />}
+<style is:inline>
+:root {
+  --p-bg: #e8e8e3; --p-surface: #dcdcd6; --p-ink: #181715; --p-muted: #5c5b56;
+  --p-accent: #bfb21a; --p-accent-ink: #181715; --p-action: #181715; --p-action-ink: #e8e8e3;
+  --p-inv-bg: #181715; --p-inv-surface: #242321; --p-inv-ink: #e8e8e3; --p-inv-muted: #91908d;
+  --p-inv-accent: #bfb21a; --p-inv-accent-ink: #181715; --p-inv-action: #bfb21a; --p-inv-action-ink: #181715;
+  --font-display: "Literata", Georgia, serif;
+  --font-text: "Figtree", system-ui, sans-serif;
+  --display-weight: 400;
+  --display-tracking: -0.02em;
+  --display-tracking-xl: -0.026em;
+}
+</style>
+<link rel="stylesheet" href="/css/site.css">
+<script is:inline>document.documentElement.classList.add('m-enter');setTimeout(()=>document.documentElement.classList.add('m-enter-done'),700)</script>
+{moments.length > 0 && (
+  <Fragment>
+    <script is:inline>document.documentElement.classList.add('mo-js');setTimeout(()=>document.documentElement.classList.add('mo-safe'),2500)</script>
+    <link rel="modulepreload" href="/assets/moments/moments.js">
+    <link rel="modulepreload" href="/assets/moments/lib.js">
+    {moments.map((m) => <link rel="modulepreload" href={`/assets/moments/${m}/moment.js`} />)}
+  </Fragment>
+)}
+<slot name="head" />
+</head>
+<body class={doc ? 'is-doc' : undefined}>
+<Nav />
+<main id="top">
+  <slot />
+</main>
+<Closing {...close} />
+<script is:inline type="module" src="/assets/system.js"></script>
+<script is:inline type="module" src="/assets/motion/motion.js"></script>
+<script is:inline type="module" src="/assets/layout/layout.js"></script>
+{diagram && <script is:inline type="module" src="/assets/diagrams/mount.js"></script>}
+<script is:inline type="module" src="/js/site.js"></script>
+{cfToken && <script is:inline defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon={JSON.stringify({ token: cfToken })}></script>}
+{plausible && <script is:inline defer data-domain={plausible} src="https://plausible.io/js/script.outbound-links.js"></script>}
+</body>
+</html>

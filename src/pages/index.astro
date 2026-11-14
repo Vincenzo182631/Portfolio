@@ -1,0 +1,349 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Arrow from '../components/Arrow.astro';
+import Plate from '../components/Plate.astro';
+import { getCollection } from 'astro:content';
+import { services } from '../data/services';
+import { profile } from '../data/profile';
+import { readingTime } from '../data/util';
+
+const work = (await getCollection('work')).sort((a, b) => a.data.order - b.data.order);
+const featured = work.filter((w) => w.data.order <= 4);
+const posts = (await getCollection('insights', (p) => !p.data.draft)).sort((a, b) => +b.data.publishDate - +a.data.publishDate).slice(0, 3);
+
+const stack = [
+  { name: 'Development', items: [
+    { label: 'HTML, CSS, JavaScript', note: 'Hand-written, responsive', icon: 'html-5' },
+    { label: 'Astro', note: 'This site runs on it', icon: 'astro' },
+    { label: 'Cloudflare Pages', note: 'Hosting and deploys', icon: 'cloudflare' },
+    { label: 'Bubble', note: 'Sites and applications', icon: 'bubble-icon' },
+  ] },
+  { name: 'SEO', items: [
+    { label: 'Google Search Console', note: 'Coverage and queries', icon: 'google-search-console' },
+    { label: 'Lighthouse', note: 'Performance checks', icon: 'lighthouse' },
+    { label: 'JSON-LD', note: 'Structured data', type: '{ }' },
+    { label: 'Schema validation', note: 'Before every release', type: 'OK' },
+  ] },
+  { name: 'Automation', items: [
+    { label: 'GoHighLevel', note: 'CRM and workflows', type: 'GHL' },
+    { label: 'n8n', note: 'Workflow orchestration', icon: 'n8n' },
+    { label: 'Cloudflare Workers', note: 'Webhooks and APIs', icon: 'cloudflare-workers' },
+    { label: 'Zoom', note: 'Webinar integrations', icon: 'zoom' },
+  ] },
+  { name: 'AI, in prototypes', items: [
+    { label: 'Claude Code', note: 'AI-assisted development', icon: 'claude' },
+    { label: 'ElevenLabs', note: 'Voice agents', icon: 'elevenlabs' },
+    { label: 'LiveKit', note: 'Real-time voice', icon: 'livekit' },
+    { label: 'Tavus', note: 'Avatar experiments', type: 'Tv' },
+  ] },
+];
+
+const workTitles: Record<string, string> = {
+  'whatahotel': 'WhatAHotel structured data',
+  'lorraine-travel': 'Lorraine Travel website rebuild',
+  'live-how-you-want': 'Live How You Want pages and CRM',
+  'sunny-braids': 'Sunny Braids webinar automation',
+};
+
+// One short code sample per article, taken from the article itself, shown at the top of its card.
+const snippets: Record<string, { alt: string; code: string }> = {
+  'technical-seo-before-you-publish': { alt: 'A robots.txt file that allows crawling and names the sitemap.', code: 'User-agent: *\nAllow: /\n\nSitemap: /sitemap-index.xml' },
+  'seo-vs-aeo-vs-geo': { alt: 'An HTML question heading followed by a short direct answer.', code: '<h2>What time is check-in?</h2>\n<p>Check-in starts at 3:00 PM.\n   Early check-in on request.</p>' },
+  'gohighlevel-website-leads-follow-up': { alt: 'A webhook payload with a contact email, a source and a tag.', code: '{\n  "email": "jordan@example.com",\n  "source": "website-form",\n  "tags": "website-lead"\n}' },
+};
+
+const stages = [
+  { title: 'Understand', text: 'I review the business, the website, the goals and the systems already in place.' },
+  { title: 'Audit and map', text: 'I list technical issues, content gaps and workflow gaps, and rank them.' },
+  { title: 'Build and connect', text: 'I make the website changes, integrations and automations.' },
+  { title: 'Test and refine', text: 'I check quality, speed, tracking, usability and reliability.' },
+  { title: 'Improve', text: 'I use the data and your feedback to choose the next change.' },
+];
+---
+<BaseLayout
+  title="Vincent Lancin: Technical SEO Specialist and Web Developer"
+  description="Technical SEO, AEO and GEO, website development and GoHighLevel automation for US businesses. One specialist who audits, builds and connects the systems."
+  moments={['word-highlight', 'pinned-chapters']}
+  doc={false}
+>
+  <!-- type: service (site-kind other)
+       deal: hero split, nav nav-centre, close close-type (re-dealt from close-photo: no photograph of the client),
+             footer footer-columns (re-dealt from footer-visit: no door), rhythm surface-pairs, buttons arrow, mark initial,
+             palette paper-grey-brass, type literata; grounds none
+       moments: word-highlight (#approach), pinned-chapters (#seo) -->
+  <section class="hero hero--split" data-enter aria-labelledby="hero-h">
+    <div class="wrap"><div class="hero-text grid hero__grid">
+      <div class="hero__text span-5">
+        <p class="hero__kicker"><span class="dot" aria-hidden="true"></span>SEO / AEO / GEO / Websites / Automation</p>
+        <h1 id="hero-h">Technical SEO, fast websites and automation</h1>
+        <p class="hero__lead"><span class="lg-only">I'm Vincent, a technical SEO specialist and developer in the Philippines. I build search-friendly websites for US businesses and connect them to the CRM and follow-up that turn visits into inquiries.</span><span class="sm-only">I'm Vincent, a technical SEO specialist and developer in the Philippines. I build search-friendly websites for US businesses.</span></p>
+        <div class="btn-row"><a class="btn btn--primary" href="/contact/" data-track="cta-hero">{profile.mainAction}<Arrow /></a><a class="btn btn--secondary" href="/work/" data-track="cta-hero-work">See my work</a></div>
+      </div>
+      <div class="hero__media span-6 start-7" role="img" aria-label="The structured data this page publishes about Vincent: a schema.org Person who is a technical SEO specialist in the Philippines.">
+        <div class="codewin" aria-hidden="true">
+          <div class="codewin__bar"><b>person.jsonld</b><span>application/ld+json</span></div>
+<pre><code>{"{"}
+  <span class="k">"@context"</span>: "https://schema.org",
+  <span class="k">"@type"</span>: "Person",
+  <span class="k">"name"</span>: "{profile.name}",
+  <span class="k">"jobTitle"</span>: "Technical SEO Specialist",
+  <span class="k">"address"</span>: {"{"} "addressCountry": "PH" {"}"}<span class="lg-only">,
+  <span class="k">"knowsAbout"</span>: [
+    "Technical SEO",
+    "Answer Engine Optimization",
+    "Generative Engine Optimization",
+    "Structured data",
+    "Website development",
+    "GoHighLevel",
+    "Workflow automation",
+    "API integrations"
+  ]</span>
+{"}"}</code></pre>
+        </div>
+        <div class="ly-float">
+          <div class="ly-float__row"><span class="ly-live">schema.org</span><span>Person</span></div>
+          <div class="ly-float__title">Published in this page's source</div>
+        </div>
+      </div>
+    </div></div>
+  </section>
+
+  <section class="section statement" id="system" data-moment="word-highlight" aria-labelledby="system-h">
+    <div class="wrap">
+      <h2 id="system-h">A better website is only part of the system</h2>
+      <p class="mo-wh__text">SEO recommendations are only useful when they get implemented. I work across both strategy and code: I make the technical fixes, restructure the content, and connect the website to <strong>the systems</strong> that run your business.</p>
+      <div class="grid trio">
+        <div class="span-4"><h3>Get discovered in search</h3><p>Technical SEO, content architecture, AEO and GEO, so search engines and answer tools can read your pages.</p></div>
+        <div class="span-4"><h3>Deliver a better website</h3><p>Fast, responsive pages that answer the question and keep the next step in view.</p></div>
+        <div class="span-4"><h3>Automate the follow-up</h3><p>CRM workflows, lead routing and nurturing that start the moment a form is sent.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section ground-surface" id="seo" style="--h: 2; --hm: 2" data-moment="pinned-chapters" aria-labelledby="seo-h">
+    <div class="wrap mo-pc__grid">
+      <div class="mo-pc__text">
+        <h2 id="seo-h">Search visibility starts with the foundation</h2>
+        <ol class="mo-pc__steps">
+          <li class="mo-pc__step">
+            <h3>Crawlable website architecture</h3>
+            <p>Clean URLs, one canonical per page, a sitemap that matches the site, and internal links that reach every page.</p>
+            <figure class="mo-pc__visual" role="img" aria-label="The robots.txt file of this website, allowing all crawlers and pointing to the sitemap.">
+              <div class="codewin" aria-hidden="true"><div class="codewin__bar"><b>robots.txt</b><span>text/plain</span></div>
+<pre><code><span class="c"># Crawlers are welcome on every page</span>
+<span class="k">User-agent:</span> *
+<span class="k">Allow:</span> /
+
+<span class="k">Sitemap:</span> /sitemap-index.xml
+
+<span class="c"># Every page declares one address</span>
+&lt;link rel="canonical"
+      href="/services/technical-seo/"&gt;</code></pre></div>
+            </figure>
+          </li>
+          <li class="mo-pc__step">
+            <h3>Structured data</h3>
+            <p>JSON-LD written from the visible content, so a hotel, a service or an article is read as what it is.</p>
+            <figure class="mo-pc__visual" role="img" aria-label="A JSON-LD Service block describing a technical SEO audit.">
+              <div class="codewin" aria-hidden="true"><div class="codewin__bar"><b>service.jsonld</b><span>application/ld+json</span></div>
+<pre><code>{"{"}
+  <span class="k">"@context"</span>: "https://schema.org",
+  <span class="k">"@type"</span>: "Service",
+  <span class="k">"name"</span>: "Technical SEO, AEO and GEO",
+  <span class="k">"provider"</span>: {"{"}
+    "@type": "Person",
+    "name": "{profile.name}"
+  {"}"},
+  <span class="k">"areaServed"</span>: "United States"
+{"}"}</code></pre></div>
+            </figure>
+          </li>
+          <li class="mo-pc__step">
+            <h3>Answer-first content</h3>
+            <p>Each page matches one search intent and states the answer first, the way answer engines and AI search quote it.</p>
+            <figure class="mo-pc__visual" role="img" aria-label="An HTML outline: a question as a heading, a two-sentence answer, then supporting detail.">
+              <div class="codewin" aria-hidden="true"><div class="codewin__bar"><b>answer.html</b><span>text/html</span></div>
+<pre><code>&lt;<span class="k">h2</span>&gt;What is AEO?&lt;/<span class="k">h2</span>&gt;
+
+<span class="c">&lt;!-- the answer, in two sentences --&gt;</span>
+&lt;<span class="k">p</span>&gt;AEO structures content so a direct
+   question gets a direct answer.&lt;/<span class="k">p</span>&gt;
+
+<span class="c">&lt;!-- then the supporting detail --&gt;</span>
+&lt;<span class="k">h3</span>&gt;How it differs from SEO&lt;/<span class="k">h3</span>&gt;</code></pre></div>
+            </figure>
+          </li>
+          <li class="mo-pc__step">
+            <h3>Performance and conversion</h3>
+            <p>Sized images, little script and stable layouts keep pages fast, and every page shows its next step.</p>
+            <figure class="mo-pc__visual" role="img" aria-label="An HTML image tag with width, height, lazy loading and responsive sources.">
+              <div class="codewin" aria-hidden="true"><div class="codewin__bar"><b>image.html</b><span>text/html</span></div>
+<pre><code>&lt;<span class="k">img</span>
+  <span class="k">src</span>="/img/suite-960.webp"
+  <span class="k">srcset</span>="/img/suite-480.webp 480w,
+          /img/suite-960.webp 960w"
+  <span class="k">sizes</span>="(max-width: 640px) 100vw, 50vw"
+  <span class="k">width</span>="960" <span class="k">height</span>="640"
+  <span class="k">loading</span>="lazy"
+  <span class="k">alt</span>="Corner suite, sea view"&gt;</code></pre></div>
+            </figure>
+          </li>
+        </ol>
+        <p><a class="link" href="/services/technical-seo/" data-track="link-seo-approach">See my SEO approach</a></p>
+      </div>
+      <div class="mo-pc__visuals frame"></div>
+    </div>
+  </section>
+
+  <section class="section" id="services" aria-labelledby="services-h">
+    <div class="wrap">
+      <div class="grid grid--top">
+        <div class="span-6">
+          <div class="section-head"><h2 id="services-h">Four services, one specialist</h2></div>
+          <ul class="rows rows--svc">
+            {services.map((s) => (
+              <li><a class="rows__name" href={`/services/${s.slug}/`}>{s.short === 'Technical SEO' ? 'Technical SEO, AEO and GEO' : s.short}</a><p>{s.homeLine}</p></li>
+            ))}
+          </ul>
+          <p style="margin-top: var(--s-5)"><a class="link" href="/services/">See all services</a></p>
+        </div>
+        <div class="frame codeframe span-6 start-7" role="img" aria-label="A website lead as a webhook payload: name, email, the service asked for and the page it came from, ready for a CRM workflow.">
+          <div class="codewin" aria-hidden="true"><div class="codewin__bar"><b>POST /webhooks/lead</b><span>application/json</span></div>
+<pre><code>{"{"}
+  <span class="k">"event"</span>: "form.submitted",
+  <span class="k">"contact"</span>: {"{"}
+    "name": "Jordan Avery",
+    "email": "jordan@example.com"
+  {"}"},
+  <span class="k">"service"</span>: "Technical SEO",
+  <span class="k">"source"</span>: "/services/technical-seo/",
+  <span class="k">"tags"</span>: "website-lead, seo"
+{"}"}<span class="lg-only">
+
+<span class="c">// then, in the CRM workflow:</span>
+<span class="c">// 1. create or update the contact</span>
+<span class="c">// 2. add it to the pipeline</span>
+<span class="c">// 3. notify the owner, send the reply</span></span></code></pre></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="work" aria-labelledby="work-h">
+    <div class="wrap">
+      <div class="section-head--row section-head">
+        <div><h2 id="work-h">Selected work. <span class="muted">Real technical challenges.</span></h2></div>
+        <a class="link" href="/work/">See all projects</a>
+      </div>
+      <div class="grid">
+        {featured.map((w, i) => (
+          <a class="work-card span-3" href={`/work/${w.id}/`}>
+            <Plate client={w.data.client} status={w.data.status} industry={w.data.tags[0]} flow={w.data.flow} ink={i === 0} ratio="1 / 1" />
+            <h3>{workTitles[w.id] ?? w.data.client}</h3>
+            <p class="t-small">{w.data.industry}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section ground-surface" id="stack" aria-labelledby="stack-h">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="stack-h">From frontend code to connected business systems</h2>
+      </div>
+      <div class="grid">
+        {stack.map((g) => (
+          <div class="stack-group span-3">
+            <p class="t-label muted">{g.name}</p>
+            <ul class="stack-list">
+              {g.items.map((it) => (
+                <li>
+                  {'icon' in it && it.icon
+                    ? <span class="ic-slot"><img class="ic" data-icon={it.icon} src={`/assets/icons/${it.icon}.svg`} alt="" loading="lazy" width="40" height="40"></span>
+                    : <span class="ic-slot ic-slot--type" aria-hidden="true">{it.type}</span>}
+                  <span>{it.label}<small>{it.note}</small></span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+      <p style="margin-top: var(--s-6)"><a class="link" href="/services/">See what I build with them</a></p>
+    </div>
+  </section>
+
+  <section class="section" id="process" aria-labelledby="process-h">
+    <div class="wrap">
+      <div class="grid grid--top">
+        <div class="span-5 stack-4">
+          <h2 id="process-h">How I work, in 5 stages</h2>
+          <p class="t-lead">The order stays the same whether the job is an audit, a build or a workflow.</p>
+          <p><a class="link" href="/work/">See the process in my projects</a></p>
+        </div>
+        <ol class="stages-v span-6 start-7">
+          {stages.map((st, i) => (
+            <li><span class="n" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span><div><strong>{st.title}</strong><p>{st.text}</p></div></li>
+          ))}
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="section g2m" id="about" aria-labelledby="about-h">
+    <div class="wrap">
+      <div class="grid grid--top">
+        <div class="span-6 stack-4">
+          <h2 id="about-h">I work where websites, search and automation meet</h2>
+          <p class="t-lead">Most businesses hire one person for the website, another for SEO and a third for the CRM. I do the part where those three have to agree.</p>
+          <p>I build the pages, fix how search engines read them, and wire the forms into GoHighLevel or an n8n workflow. My clients so far are in hospitality, travel, festival transport and online education.</p>
+          <dl class="facts">
+            <div><dt>Based in</dt><dd>Philippines, working remotely</dd></div>
+            <div><dt>Works with</dt><dd>US businesses and agencies</dd></div>
+            <div><dt>Engagements</dt><dd>Projects and ongoing partnerships</dd></div>
+          </dl>
+          <p><a class="link" href="/about/">Read about my background</a></p>
+        </div>
+        <div class="frame overlap span-6 start-7" role="img" aria-label="Three overlapping circles labelled websites, search and automation. Vincent works in the area where all three overlap.">
+          <svg viewBox="0 0 560 520" aria-hidden="true">
+            <circle cx="280" cy="190" r="150"/><circle cx="195" cy="330" r="150"/><circle cx="365" cy="330" r="150"/>
+            <path class="core" d="M280 206.4 A150 150 0 0 1 345 325.2 A150 150 0 0 1 215 325.2 A150 150 0 0 1 280 206.4Z"/>
+            <text x="280" y="96">Search</text><text x="112" y="392">Websites</text><text x="448" y="392">Automation</text>
+            <text class="me" x="280" y="296">Vincent</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section ground-surface g2m" id="insights" aria-labelledby="insights-h">
+    <div class="wrap grid ins">
+      <div class="ins__a">
+        <div class="section-head--row section-head">
+          <div><h2 id="insights-h">Insights on SEO and automation</h2></div>
+          <a class="link" href="/insights/">Read all articles</a>
+        </div>
+        {posts.slice(0, 1).map((p) => (
+          <a class="post-card post-card--code" href={`/insights/${p.id}/`}>
+            <div class="codewin" role="img" aria-label={snippets[p.id]?.alt}><pre aria-hidden="true"><code>{snippets[p.id]?.code}</code></pre></div>
+            <p class="meta"><span>{p.data.category}</span><span>{readingTime(p.body ?? '')} min read</span></p>
+            <h3>{p.data.title}</h3>
+            <p>{p.data.excerpt}</p>
+            <span class="link">Read the article</span>
+          </a>
+        ))}
+      </div>
+      <div class="ins__b">
+        {posts.slice(1).map((p) => (
+          <a class="post-card post-card--code" href={`/insights/${p.id}/`}>
+            <div class="codewin" role="img" aria-label={snippets[p.id]?.alt}><pre aria-hidden="true"><code>{snippets[p.id]?.code}</code></pre></div>
+            <p class="meta"><span>{p.data.category}</span><span>{readingTime(p.body ?? '')} min read</span></p>
+            <h3>{p.data.title}</h3>
+            <p>{p.data.excerpt}</p>
+            <span class="link">Read the article</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

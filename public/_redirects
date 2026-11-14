@@ -1,0 +1,6 @@
+# Old static portfolio URLs -> the new routes (301). Only relevant if this build replaces the old site on the same domain.
+/index.html      /           301
+/about.html      /about/     301
+/services.html   /services/  301
+/portfolio.html  /work/      301
+/contact.html    /contact/   301

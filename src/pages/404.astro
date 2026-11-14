@@ -1,0 +1,22 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { services } from '../data/services';
+---
+<BaseLayout title="Page not found" description="This page does not exist. Find the services, work and articles from here." noindex>
+  <div class="doc-block"><div class="wrap">
+    <p class="error-code" aria-hidden="true">404</p>
+    <header class="doc-head">
+      <h1>This page returned a 404</h1>
+      <p class="t-lead">The address is wrong or the page has moved. As an SEO I would rather show you an honest 404 than redirect you somewhere unrelated.</p>
+      <div class="btn-row"><a class="btn btn--primary" href="/">Go to the homepage</a><a class="btn btn--secondary" href="/contact/">Report a broken link</a></div>
+    </header>
+  </div></div>
+  <div class="doc-block"><div class="wrap">
+    <h2>Pages that do exist</h2>
+    <ul class="rows rows--svc">
+      {services.map((s) => <li><a class="rows__name" href={`/services/${s.slug}/`}>{s.name}</a><p>{s.homeLine}</p></li>)}
+      <li><a class="rows__name" href="/work/">Work</a><p>Case studies in hospitality, travel, events and education.</p></li>
+      <li><a class="rows__name" href="/insights/">Insights</a><p>Articles on technical SEO, AEO, GEO and automation.</p></li>
+    </ul>
+  </div></div>
+</BaseLayout>

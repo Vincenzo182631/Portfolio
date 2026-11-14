@@ -1,0 +1,57 @@
+---
+// footer.closing: the dealt close (close-type) and the footer columns in one last screen.
+import { serviceNav } from '../data/navigation';
+import { profile } from '../data/profile';
+import Arrow from './Arrow.astro';
+import { getCollection } from 'astro:content';
+interface Props { heading?: string; line?: string; service?: string; href?: string; label?: string }
+const {
+  heading = 'Bring me a website, SEO or automation problem',
+  line = 'Whether you need a stronger technical foundation, a better website or workflows that save time, tell me what is going on and I will say what makes sense.',
+  service,
+  href,
+  label = profile.mainAction,
+} = Astro.props;
+const work = (await getCollection('work')).sort((a, b) => a.data.order - b.data.order);
+const posts = (await getCollection('insights', (p) => !p.data.draft)).sort((a, b) => +b.data.publishDate - +a.data.publishDate);
+const contactHref = href ? href : service ? `/contact/?service=${encodeURIComponent(service)}` : '/contact/';
+const year = new Date().getFullYear();
+---
+<footer class="footer closing g2m" id="close" aria-labelledby="close-h">
+  <div class="wrap">
+    <div class="closing__cta close--type">
+      <div class="section-head">
+        <h2 id="close-h">{heading}</h2>
+        <p>{line}</p>
+      </div>
+      <a class="btn btn--primary btn--xl" href={contactHref} data-track="cta-close">{label}<Arrow /></a>
+    </div>
+    <div class="closing__links">
+      <div class="grid">
+        <div class="span-4 stack-4">
+          <a class="nav__logo" href="/">{profile.name}</a>
+          <p class="footer__lede">Technical SEO, websites and automation, from the Philippines.</p>
+        </div>
+        <div class="span-2 footer__col"><h3>Services</h3><ul>
+          {serviceNav.map((s) => <li><a href={s.href}>{s.label}</a></li>)}
+        </ul></div>
+        <div class="span-2 footer__col"><h3>Work</h3><ul>
+          {work.map((w) => <li><a href={`/work/${w.id}/`}>{w.data.client}</a></li>)}
+        </ul></div>
+        <div class="span-2 footer__col"><h3>Insights</h3><ul>
+          {posts.slice(0, 3).map((p) => <li><a href={`/insights/${p.id}/`}>{p.data.category}</a></li>)}
+          <li><a href="/insights/">All articles</a></li>
+        </ul></div>
+        <div class="span-2 footer__col"><h3>About</h3><ul>
+          <li><a href="/about/">About Vincent</a></li>
+          <li><a href="/contact/">Contact</a></li>
+          <li><a href={profile.linkedin} rel="noopener noreferrer me" data-track="outbound-linkedin">LinkedIn</a></li>
+        </ul></div>
+      </div>
+      <div class="footer__legal">
+        <span>&copy; {year} {profile.name} &nbsp; <a href="/privacy/">Privacy</a></span>
+        <span class="credits">Product names and logos are trademarks of their owners</span>
+      </div>
+    </div>
+  </div>
+</footer>

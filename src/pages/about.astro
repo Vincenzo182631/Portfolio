@@ -1,0 +1,89 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Crumbs from '../components/Crumbs.astro';
+import Arrow from '../components/Arrow.astro';
+import { breadcrumbSchema, personId } from '../data/schema';
+import { profile } from '../data/profile';
+import { services } from '../data/services';
+const trail = [{ name: 'Home', path: '/' }, { name: 'About', path: '/about/' }];
+const site = Astro.site!;
+const profilePage = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfilePage',
+  url: new URL('/about/', site).href,
+  name: `About ${profile.name}`,
+  mainEntity: { '@id': personId(site) },
+};
+---
+<BaseLayout
+  title="About Vincent Lancin, technical SEO specialist"
+  description="Vincent Lancin is a technical SEO specialist, web developer and automation engineer in the Philippines who works remotely with US businesses and agencies."
+  type="profile"
+  jsonLd={[breadcrumbSchema(site, trail), profilePage]}
+  close={{ heading: 'Tell me what you are working on', line: 'A short description is enough. I reply by email with questions or a suggested next step.' }}
+>
+  <div class="doc-block"><div class="wrap">
+    <Crumbs trail={trail} />
+    <header class="doc-head">
+      <h1>I work where websites, search and automation meet</h1>
+      <p class="t-lead">I'm {profile.firstName}, a technical SEO specialist, web developer and automation engineer based in the {profile.location}. I work remotely with US businesses and agencies, on projects and as an ongoing technical partner.</p>
+    </header>
+  </div></div>
+
+  <div class="doc-block"><div class="wrap">
+    <div class="grid grid--top">
+      <h2 class="doc-h2 span-4">What I do</h2>
+      <div class="prose span-7 start-6">
+        <p>Website development, SEO, marketing technology and automation are usually handled by different people. The website gets built, then someone audits it, then someone else tries to connect the forms to a CRM. Problems show up in the gaps between those jobs.</p>
+        <p>I work in the gaps. I can improve a site's structure while I am building it, write the structured data for the pages I code, and connect the landing page to the GoHighLevel workflow that follows up on the lead. One person carrying a project across all three means fewer handoffs and fewer things lost in them.</p>
+        <p>Technical SEO is the center of that work. It is the part I am asked for most, and it decides whether everything else gets seen.</p>
+      </div>
+    </div>
+  </div></div>
+
+  <div class="doc-block doc-block--surface"><div class="wrap">
+    <h2>Work I have done across those areas</h2>
+    <div class="block-list">
+      <div><h3>Site structure during the build</h3><p>URL plans, redirects, canonicals and internal links decided while the site is developed, as on the <a class="link" href="/work/lorraine-travel/">Lorraine Travel rebuild</a>.</p></div>
+      <div><h3>Landing pages connected to GoHighLevel</h3><p>Festival travel pages with waitlist and lead capture feeding CRM workflows for <a class="link" href="/work/live-how-you-want/">Live How You Want</a>.</p></div>
+      <div><h3>Automated lead follow-up</h3><p>Webinar registration, reminders, attendance tagging and nurture sequences for <a class="link" href="/work/sunny-braids/">Sunny Braids</a>.</p></div>
+      <div><h3>Website data and content systems</h3><p>Structured hotel content, FAQ schema and imagery data for <a class="link" href="/work/whatahotel/">WhatAHotel</a>.</p></div>
+      <div><h3>Workflows with APIs and webhooks</h3><p>n8n flows and Cloudflare Workers that pass data between forms, CRMs and messaging tools.</p></div>
+      <div><h3>AI-powered customer experiences, as prototypes</h3><p>A conversational <a class="link" href="/work/ai-hotel-concierge/">hotel concierge prototype</a> with Tavus, plus voice experiments with ElevenLabs and LiveKit.</p></div>
+    </div>
+  </div></div>
+
+  <div class="doc-block"><div class="wrap">
+    <div class="grid grid--top">
+      <h2 class="doc-h2 span-4">How I approach a project</h2>
+      <div class="prose span-7 start-6">
+        <blockquote><p>I prefer solutions that are useful, maintainable and connected to a real business need.</p></blockquote>
+        <p>In practice that means I ask what the business needs before I suggest a tool, I choose the simpler build when two would work, and I document what I make so someone else can maintain it.</p>
+        <p>I am a hands-on specialist. There is no team behind this site and no account manager between us: the person you talk to is the person who does the work. When part of a project sits with someone else, such as a client's backend developer, I say so and work with them.</p>
+        <p>I started in 2020 as a virtual assistant doing lead generation and administrative work. Building automations for those tasks is what led me into GoHighLevel, then into the websites that feed it, then into how those websites get found.</p>
+      </div>
+    </div>
+  </div></div>
+
+  <div class="doc-block"><div class="wrap">
+    <div class="grid grid--top">
+      <h2 class="doc-h2 span-4">Facts about working with me</h2>
+      <dl class="facts span-7 start-6">
+        <div><dt>Location</dt><dd>{profile.location}</dd></div>
+        <div><dt>Clients</dt><dd>Mainly US-based businesses, agencies and consultants</dd></div>
+        <div><dt>Industries so far</dt><dd>Hospitality, travel, event travel, online education</dd></div>
+        <div><dt>Work model</dt><dd>Remote. Project-based or ongoing</dd></div>
+        <div><dt>Language</dt><dd>English</dd></div>
+        <div><dt>Profile</dt><dd><a class="link" href={profile.linkedin} rel="noopener noreferrer me" data-track="outbound-linkedin">LinkedIn</a></dd></div>
+      </dl>
+    </div>
+  </div></div>
+
+  <div class="doc-block"><div class="wrap">
+    <h2>Services I offer</h2>
+    <ul class="rows rows--svc">
+      {services.map((s) => <li><a class="rows__name" href={`/services/${s.slug}/`}>{s.name}</a><p>{s.homeLine}</p></li>)}
+    </ul>
+    <div class="btn-row" style="margin-top: var(--s-6)"><a class="btn btn--primary" href="/contact/" data-track="cta-about">{profile.mainAction}<Arrow /></a><a class="btn btn--secondary" href="/work/">See my work</a></div>
+  </div></div>
+</BaseLayout>

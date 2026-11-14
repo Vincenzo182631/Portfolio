@@ -1,0 +1,70 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Crumbs from '../../components/Crumbs.astro';
+import { breadcrumbSchema } from '../../data/schema';
+import { serviceBySlug } from '../../data/services';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const work = await getCollection('work');
+  return work.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const d = entry.data;
+const trail = [{ name: 'Home', path: '/' }, { name: 'Work', path: '/work/' }, { name: d.client, path: `/work/${entry.id}/` }];
+const all = (await getCollection('work')).sort((a, b) => a.data.order - b.data.order);
+const next = all[(all.findIndex((w) => w.id === entry.id) + 1) % all.length];
+const related = d.services.map((s) => serviceBySlug(s)!);
+---
+<BaseLayout
+  title={d.seoTitle}
+  description={d.description}
+  type="article"
+  jsonLd={[breadcrumbSchema(Astro.site!, trail)]}
+  close={{ heading: 'Working on a similar challenge', line: `Tell me about your project and how it compares with ${d.client}.`, service: related[0]?.inquiry.value }}
+>
+  <article>
+    <div class="doc-block"><div class="wrap">
+      <Crumbs trail={trail} />
+      <header class="doc-head">
+        <p class="t-label muted">{d.client} · {d.industry} · {d.status}</p>
+        <h1>{d.title}</h1>
+        <p class="t-lead">{d.summary}</p>
+        <ul class="tags">{d.tags.map((t) => <li>{t}</li>)}</ul>
+      </header>
+    </div></div>
+
+    <div class="doc-block doc-block--surface"><div class="wrap">
+      <h2 class="t-label muted" style="font-family: var(--font-text); font-size: var(--t-label); margin-bottom: var(--s-5)">How the system fits together</h2>
+      <ol class="flow-h" style={`--n: ${d.flow.length}`}>
+        {d.flow.map((f, i) => <li><b>{f}</b><span>Step {i + 1} of {d.flow.length}</span></li>)}
+      </ol>
+    </div></div>
+
+    <div class="doc-block"><div class="wrap">
+      <div class="grid grid--top">
+        <div class="prose span-7"><Content /></div>
+        <aside class="aside-card span-4 start-9" aria-label="Project details">
+          <h2>Project details</h2>
+          <dl>
+            <div><dt>Client</dt><dd>{d.client}</dd></div>
+            <div><dt>Industry</dt><dd>{d.industry}</dd></div>
+            <div><dt>Status</dt><dd>{d.status}</dd></div>
+            <div><dt>My contribution</dt><dd><ul class="plain-list" style="font-weight: 400">{d.contribution.map((c) => <li>{c}</li>)}</ul></dd></div>
+            <div><dt>Tools and integrations</dt><dd style="font-weight: 400">{d.tools.join(', ')}</dd></div>
+            {d.url && <div><dt>Website</dt><dd><a class="link" href={d.url} rel="noopener noreferrer" data-track={`outbound-${entry.id}`}>Visit {new URL(d.url).hostname.replace('www.', '')}</a></dd></div>}
+          </dl>
+        </aside>
+      </div>
+    </div></div>
+
+    <div class="doc-block"><div class="wrap">
+      <h2>Related services</h2>
+      <ul class="rows rows--svc">
+        {related.map((r) => <li><a class="rows__name" href={`/services/${r.slug}/`}>{r.name}</a><p>{r.homeLine}</p></li>)}
+      </ul>
+      <p style="margin-top: var(--s-6)"><a class="link" href={`/work/${next.id}/`}>Next case study: {next.data.client}</a></p>
+    </div></div>
+  </article>
+</BaseLayout>

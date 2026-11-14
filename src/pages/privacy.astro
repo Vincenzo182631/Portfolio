@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Crumbs from '../components/Crumbs.astro';
+import { breadcrumbSchema } from '../data/schema';
+import { profile } from '../data/profile';
+const trail = [{ name: 'Home', path: '/' }, { name: 'Privacy', path: '/privacy/' }];
+---
+<BaseLayout title="Privacy note" description="What this website collects: the details you send through the contact form, used only to reply to you, and optional cookieless analytics." jsonLd={[breadcrumbSchema(Astro.site!, trail)]}>
+  <div class="doc-block"><div class="wrap">
+    <Crumbs trail={trail} />
+    <header class="doc-head"><h1>Privacy note</h1><p class="t-lead">This is a personal portfolio. It collects as little as it can.</p></header>
+  </div></div>
+  <div class="doc-block"><div class="wrap"><div class="prose">
+    <h2>The contact form</h2>
+    <p>When you send the contact form, your name, email address, optional company or website, the service you chose, optional budget range and your message are sent to {profile.name} by email through Resend, an email delivery service, and processed by a Cloudflare Pages Function. They are used only to reply to you and to discuss your project. They are not sold, shared for marketing or added to a mailing list.</p>
+    <p>If spam protection is enabled, Cloudflare Turnstile checks that the form is sent by a person. Your IP address is used briefly to limit repeated submissions.</p>
+    <h2>Analytics</h2>
+    <p>If analytics is enabled on this site, it is a cookieless service (Cloudflare Web Analytics or Plausible) that counts page views and clicks on main buttons without identifying you. This site sets no advertising cookies.</p>
+    <h2>Hosting and fonts</h2>
+    <p>The site is hosted on Cloudflare Pages, which processes requests to deliver the pages. Fonts are loaded from Google Fonts, which receives your IP address when the font files are requested.</p>
+    <h2>Your requests</h2>
+    <p>To ask what was received from you, or to have it deleted, email <a href={`mailto:${profile.email}`}>{profile.email}</a>.</p>
+  </div></div></div>
+</BaseLayout>
