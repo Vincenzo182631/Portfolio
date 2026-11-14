@@ -2,6 +2,27 @@
 
 Nothing in this repository deploys by itself. No DNS record or live domain was changed while building it.
 
+## How it deploys now
+
+The site is live as the Cloudflare Pages project `vincent-portfolio` at
+`https://vincent-portfolio-2lj.pages.dev`. It is a direct-upload project, so Cloudflare does not build it.
+`.github/workflows/deploy.yml` builds, checks and uploads it on every push to the default branch, and builds
+and checks every pull request without deploying.
+
+One-time setup in GitHub, **Settings**, **Secrets and variables**, **Actions**:
+
+| Kind | Name | Value |
+| --- | --- | --- |
+| Secret | `CLOUDFLARE_API_TOKEN` | A Cloudflare API token with the "Cloudflare Pages: Edit" permission |
+| Secret | `CLOUDFLARE_ACCOUNT_ID` | Your Cloudflare account ID |
+| Variable (optional) | `SITE_URL` | The public origin, once you have a custom domain |
+| Variable (optional) | `ALLOW_INDEXING` | `true` when the site should be indexed |
+
+Until both secrets exist, the workflow checks the build and skips the upload with a warning. The contact form's
+secrets (`RESEND_API_KEY`, `CONTACT_TO`, `CONTACT_FROM`) are still set on the Pages project in Cloudflare, not in GitHub.
+
+The section below describes the alternative: a Git-connected Pages project that Cloudflare builds itself.
+
 ## Create the Pages project
 
 1. Cloudflare dashboard, **Workers & Pages**, **Create**, **Pages**, **Connect to Git**.
