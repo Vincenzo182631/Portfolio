@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Arrow from '../components/Arrow.astro';
-import Plate from '../components/Plate.astro';
+import WorkVisual from '../components/WorkVisual.astro';
 import { getCollection } from 'astro:content';
 import { services } from '../data/services';
 import { profile } from '../data/profile';
@@ -40,9 +40,9 @@ const stack = [
 
 const workTitles: Record<string, string> = {
   'whatahotel': 'WhatAHotel structured data',
-  'lorraine-travel': 'Lorraine Travel website rebuild',
+  'solo5estrellas': 'Solo5Estrellas technical SEO audit',
+  'lorraine-travel': 'Lorraine Travel website redesign',
   'live-how-you-want': 'Live How You Want pages and CRM',
-  'sunny-braids': 'Sunny Braids webinar automation',
 };
 
 // One short code sample per article, taken from the article itself, shown at the top of its card.
@@ -238,7 +238,7 @@ const stages = [
       <div class="grid">
         {featured.map((w, i) => (
           <a class="work-card span-3" href={`/work/${w.id}/`}>
-            <Plate client={w.data.client} status={w.data.status} industry={w.data.tags[0]} flow={w.data.flow} ink={i === 0} ratio="1 / 1" />
+            <WorkVisual data={w.data} ink={i === 0} ratio="1 / 1" />
             <h3>{workTitles[w.id] ?? w.data.client}</h3>
             <p class="t-small">{w.data.industry}</p>
           </a>

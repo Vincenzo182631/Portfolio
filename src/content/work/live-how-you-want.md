@@ -7,7 +7,13 @@ status: "Live site"
 url: "https://www.livehowyouwant.com"
 description: "Festival travel landing pages, lead capture and GoHighLevel CRM workflows for Live How You Want, built on Bubble."
 summary: "Festival travel landing pages on Bubble connected to GoHighLevel, from search-driven content to waitlists, lead capture and guest communications."
-order: 3
+order: 4
+image: "/images/work/live-how-you-want.jpg"
+imageAlt: "The Live How You Want homepage: hotel and shuttle packages for EDC Las Vegas."
+facts:
+  - { value: "9", label: "questions answered in FAQ markup on the homepage" }
+  - { value: "3", label: "packages listed as structured offers" }
+  - { value: "5", label: "structured data types on the homepage" }
 tags: ["Website Development", "GoHighLevel", "SEO Content", "Event Travel", "CRM Automation"]
 contribution:
   - "Festival travel landing pages"

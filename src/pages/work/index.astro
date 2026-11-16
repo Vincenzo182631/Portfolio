@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Crumbs from '../../components/Crumbs.astro';
-import Plate from '../../components/Plate.astro';
+import WorkVisual from '../../components/WorkVisual.astro';
 import { breadcrumbSchema } from '../../data/schema';
 import { getCollection } from 'astro:content';
 const trail = [{ name: 'Home', path: '/' }, { name: 'Work', path: '/work/' }];
@@ -22,7 +22,7 @@ const lab = [
     <Crumbs trail={trail} />
     <header class="doc-head">
       <h1>Selected work in search, websites and automation</h1>
-      <p class="t-lead">Each case study says what the problem was, what I worked on myself and how it was built. The diagrams are my own drawings of each system. I do not publish client figures I cannot verify.</p>
+      <p class="t-lead">Each case study says what the problem was, what I worked on myself and how it was built. Screenshots are of the live sites. Where a project has no public page, I show a diagram of the system instead. Figures come from the project files, and I do not publish client results I cannot verify.</p>
     </header>
   </div></div>
 
@@ -31,8 +31,8 @@ const lab = [
     <div class="grid" style="row-gap: var(--s-8)">
       {work.map((w, i) => (
         <a class="work-card span-6" href={`/work/${w.id}/`}>
-          <Plate client={w.data.client} status={w.data.status} industry={w.data.industry} flow={w.data.flow} ink={i % 3 === 0} ratio="16 / 9" />
-          <p class="t-label muted">{w.data.client}</p>
+          <WorkVisual data={w.data} ink={i % 3 === 0} ratio="16 / 10" eager={i < 2} />
+          <p class="t-label muted">{w.data.client} · {w.data.status}</p>
           <h3 style="font: var(--display-weight) var(--t-h3)/1.2 var(--font-display); letter-spacing: var(--display-tracking)">{w.data.title}</h3>
           <p>{w.data.summary}</p>
           <span class="link">Read the case study</span>
