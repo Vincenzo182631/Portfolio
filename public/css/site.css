@@ -243,3 +243,18 @@
   .closing .closing__links { gap: var(--s-5); }
 }
 @media (max-width: 639px) { #about .overlap { aspect-ratio: auto; height: 640px; } }
+
+/* real screenshots of the work, in a plain frame */
+.shot { position: relative; margin: 0; overflow: hidden; aspect-ratio: var(--shot-ratio, 16 / 10); border-radius: var(--r-lg); background: var(--surface); border: 1px solid var(--line); }
+.shot > img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; transition: transform 600ms var(--ease, ease); }
+@media (hover: hover) { a.work-card:hover .shot > img { transform: scale(1.03); } }
+.shot--hero { --shot-ratio: 16 / 9; }
+.doc-block--tight { padding-block: var(--s-6); border-top: 0 !important; }
+.figures { margin: 0; display: grid; grid-template-columns: repeat(var(--n, 4), minmax(0, 1fr)); gap: var(--s-5); }
+.figures > div { display: flex; flex-direction: column-reverse; gap: var(--s-2); padding-top: var(--s-4); border-top: 1px solid var(--ink); }
+.figures dd { margin: 0; font: var(--display-weight) clamp(36px, 4vw, 56px)/1 var(--font-display); letter-spacing: var(--display-tracking); }
+.figures dt { font-size: var(--t-small); color: var(--muted); max-width: 26ch; }
+.prose img { width: 100%; height: auto; border-radius: var(--r-md); border: 1px solid var(--line); }
+@media (max-width: 767px) { .figures { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+#work .shot > img { object-position: left top; }
+@media (max-width: 639px) { #work .shot { aspect-ratio: 1 / 1; } }

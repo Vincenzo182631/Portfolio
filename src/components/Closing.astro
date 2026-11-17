@@ -36,7 +36,8 @@ const year = new Date().getFullYear();
           {serviceNav.map((s) => <li><a href={s.href}>{s.label}</a></li>)}
         </ul></div>
         <div class="span-2 footer__col"><h3>Work</h3><ul>
-          {work.map((w) => <li><a href={`/work/${w.id}/`}>{w.data.client}</a></li>)}
+          {work.slice(0, 4).map((w) => <li><a href={`/work/${w.id}/`}>{w.data.client}</a></li>)}
+          <li><a href="/work/">All projects</a></li>
         </ul></div>
         <div class="span-2 footer__col"><h3>Insights</h3><ul>
           {posts.slice(0, 3).map((p) => <li><a href={`/insights/${p.id}/`}>{p.data.category}</a></li>)}

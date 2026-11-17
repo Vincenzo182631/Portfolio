@@ -32,6 +32,15 @@ monitoring" and "99.9% uptime" figures, the six sample projects, and the Zapier 
 No project page shows a metric, ranking, revenue figure or client quote. Add verified results to the
 "Outcome" section of each `src/content/work/*.md` when you have them.
 
+## Added on 16 November 2026 (review before relying on them)
+
+- **Screenshots of live client sites** are now used for WhatAHotel, Lorraine Travel, Live How You Want, Solo5Estrellas and WhatAHotel Homes (`public/images/work/`). Vincent confirmed these may be shown. Retake them when a site changes.
+- **Lorraine Travel** is now described as a live redesign, as Vincent confirmed.
+- **Three new case studies** were drafted from Vincent's public repositories: Solo5Estrellas, WhatAHotel Homes and WhatAHotel Price Intelligence. The AI Hotel Concierge case study was rewritten from the `whatahotel` and `whathotel-search` repositories. Every figure comes from a repository file; read each page for accuracy.
+- **Solo5Estrellas figures** follow that repository's `START-HERE.md` where its files disagree (13 fixes, not 14; 345 drafted pages, not 344).
+- **Avatar vendor:** the Homes page concierge runs on the HeyGen LiveAvatar SDK, not Tavus; the case study says so.
+- **Still wanted from Vincent:** GoHighLevel workflow screenshots (Sunny Braids, Live How You Want), a client quote, and Search Console data if a client allows it.
+
 ## Visual assets
 
 - **No client screenshots or logos are used.** Each project is shown with an original flow diagram. To use real

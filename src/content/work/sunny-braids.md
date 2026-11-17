@@ -6,7 +6,7 @@ industry: "Online education and beauty training"
 status: "Client work"
 description: "GoHighLevel webinar automation for Sunny Braids: registration, reminders, attendance-based tagging, Zoom integration and follow-up sequences."
 summary: "A webinar funnel in GoHighLevel: registration, reminders, attendance-based tagging and follow-up, connected to Zoom through webhooks."
-order: 4
+order: 6
 tags: ["GoHighLevel", "Webinar Funnels", "CRM Automation", "Online Education"]
 contribution:
   - "Webinar registration and confirmation workflows"

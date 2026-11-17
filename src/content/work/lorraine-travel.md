@@ -1,13 +1,18 @@
 ---
 title: "Modernizing a Travel Website with Search and Performance in Mind"
-seoTitle: "Lorraine Travel case study: an SEO-ready website rebuild"
+seoTitle: "Lorraine Travel case study: an SEO-ready website redesign"
 client: "Lorraine Travel"
 industry: "Travel advisory and luxury travel"
-status: "In development"
+status: "Live site"
 url: "https://www.lorrainetravel.com"
-description: "A redesign in development for Lorraine Travel: HTML, CSS and JavaScript on Cloudflare Pages, with SEO-focused site architecture."
-summary: "A website redesign in development: hand-built pages for Cloudflare Pages with search-friendly architecture and clearer paths to inquiry."
-order: 2
+description: "A redesign of lorrainetravel.com in HTML, CSS and JavaScript on Cloudflare, with SEO-focused architecture and a 370-hotel guide."
+summary: "A live redesign: hand-built pages on Cloudflare with search-friendly architecture, structured data and clearer paths to inquiry."
+order: 3
+image: "/images/work/lorraine-travel.jpg"
+imageAlt: "The redesigned Lorraine Travel homepage: The world, curated. Since 1948, over a photograph of overwater villas at dusk."
+facts:
+  - { value: "370", label: "hotels compared in the hotel guide" }
+  - { value: "4", label: "questions answered in FAQ markup on the homepage" }
 tags: ["Website Development", "Technical SEO", "Luxury Travel", "Cloudflare Pages"]
 contribution:
   - "Website redesign and modernization"
@@ -18,7 +23,7 @@ contribution:
   - "Performance and maintainability"
 tools: ["HTML", "CSS", "JavaScript", "Cloudflare Pages", "JSON-LD", "Structured data"]
 services: ["website-development", "technical-seo"]
-flow: ["Existing site", "New architecture", "Staging build", "Inquiry"]
+flow: ["Existing site", "New architecture", "Live site", "Inquiry"]
 ---
 
 ## The challenge
@@ -29,9 +34,9 @@ A redesign can throw that value away. Change the URLs without a plan, drop a pag
 
 ## My contribution
 
-I am developing the modernized website. My work covers the front-end build in HTML, CSS and JavaScript, the site architecture, technical SEO, structured data, luxury travel content, and the places where the website can connect to marketing tools and automation.
+I designed and built the modernized website, which is now live at lorrainetravel.com. My work covers the front-end build in HTML, CSS and JavaScript, the site architecture, technical SEO, structured data, luxury travel content, and the places where the website can connect to marketing tools and automation.
 
-This is development and staging work. The redesigned site is not presented here as publicly launched, and the link above goes to the current live website.
+The redesign is live. The homepage, the destination pages and a hotel guide that compares 370 hotels are served through Cloudflare.
 
 ## The solution
 
@@ -56,12 +61,16 @@ I also noted where the site could connect to other systems, such as inquiry form
 
 ## Outcome
 
-What exists today is a modernized build in development: a new page structure, redesigned templates, search-oriented page content, and a deployment path through Cloudflare Pages. The important existing content and links have been accounted for in the new structure.
+The redesigned site is live at lorrainetravel.com: a new page structure, redesigned templates, search-oriented page content and a hotel guide that compares 370 hotels. The important existing content and links were carried into the new structure.
 
-Because the redesign has not been launched, there are no live results to report, and I have not published performance figures for this project.
+The structured data can be checked on the live pages. The homepage publishes the business as a travel agency with its address and opening hours, a site search action, and four questions and answers as FAQ markup. The hotel guide adds a breadcrumb trail and an item list of the hotels it compares.
+
+![The Lorraine Travel hotel guide page, which compares 370 hotels](/images/work/lorraine-travel-hotel-guide.jpg)
+
+I have not published traffic or ranking figures for this project.
 
 ## Considerations
 
 The main trade-off was between a clean slate and continuity. Starting over would have been faster to design. Keeping existing content and links took more planning and protects what the site has already earned.
 
-Choosing plain HTML, CSS and JavaScript over a heavier framework was deliberate. It keeps the site fast and inexpensive to run, and it means content updates need someone comfortable with code, or a simple editing process agreed before launch. That question is still open and belongs on the launch checklist, along with redirect testing on the staging build.
+Choosing plain HTML, CSS and JavaScript over a heavier framework was deliberate. It keeps the site fast and inexpensive to run, and it means content updates need someone comfortable with code, or a simple editing process agreed before launch. That is the trade-off of a hand-built site, and it is worth agreeing an editing process early.

@@ -1,0 +1,18 @@
+---
+// A project's picture: its real screenshot when the case study has one, else an original flow diagram.
+import Plate from './Plate.astro';
+interface Props {
+  data: { client: string; status: string; industry: string; flow: string[]; tags: string[]; image?: string; imageAlt?: string };
+  ink?: boolean;
+  ratio?: string;
+  eager?: boolean;
+}
+const { data, ink = false, ratio = '4 / 3', eager = false } = Astro.props;
+---
+{data.image ? (
+  <div class="shot" style={`--shot-ratio: ${ratio}`}>
+    <img src={data.image} alt={data.imageAlt ?? `${data.client} website`} width="1440" height="900" loading={eager ? 'eager' : 'lazy'} decoding="async" data-source="client" data-subject={data.client}>
+  </div>
+) : (
+  <Plate client={data.client} status={data.status} industry={data.tags[0]} flow={data.flow} ink={ink} ratio={ratio} />
+)}

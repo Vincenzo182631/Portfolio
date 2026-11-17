@@ -35,6 +35,21 @@ const related = d.services.map((s) => serviceBySlug(s)!);
       </header>
     </div></div>
 
+    {d.image && (
+      <div class="doc-block doc-block--tight"><div class="wrap">
+        <figure class="shot shot--hero"><img src={d.image} alt={d.imageAlt ?? `${d.client} website`} width="1440" height="900" fetchpriority="high" data-source="client" data-subject={d.client}></figure>
+      </div></div>
+    )}
+
+    {d.facts.length > 0 && (
+      <div class="doc-block doc-block--tight"><div class="wrap">
+        <h2 class="t-label muted" style="font-family: var(--font-text); font-size: var(--t-label); margin-bottom: var(--s-5)">The project in figures</h2>
+        <dl class="figures" style={`--n: ${d.facts.length}`}>
+          {d.facts.map((f) => <div><dt>{f.label}</dt><dd>{f.value}</dd></div>)}
+        </dl>
+      </div></div>
+    )}
+
     <div class="doc-block doc-block--surface"><div class="wrap">
       <h2 class="t-label muted" style="font-family: var(--font-text); font-size: var(--t-label); margin-bottom: var(--s-5)">How the system fits together</h2>
       <ol class="flow-h" style={`--n: ${d.flow.length}`}>
@@ -53,6 +68,7 @@ const related = d.services.map((s) => serviceBySlug(s)!);
             <div><dt>Status</dt><dd>{d.status}</dd></div>
             <div><dt>My contribution</dt><dd><ul class="plain-list" style="font-weight: 400">{d.contribution.map((c) => <li>{c}</li>)}</ul></dd></div>
             <div><dt>Tools and integrations</dt><dd style="font-weight: 400">{d.tools.join(', ')}</dd></div>
+            {d.repo && <div><dt>Source</dt><dd><a class="link" href={d.repo} rel="noopener noreferrer" data-track={`repo-${entry.id}`}>See the repository on GitHub</a></dd></div>}
             {d.url && <div><dt>Website</dt><dd><a class="link" href={d.url} rel="noopener noreferrer" data-track={`outbound-${entry.id}`}>Visit {new URL(d.url).hostname.replace('www.', '')}</a></dd></div>}
           </dl>
         </aside>

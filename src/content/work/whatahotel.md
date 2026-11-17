@@ -8,6 +8,8 @@ url: "https://www.whatahotel.com"
 description: "How I worked on structured hotel content, FAQ schema and content operations for WhatAHotel, a luxury hotel discovery website."
 summary: "Structured hotel content, FAQ schema and content operations for a luxury hotel discovery website."
 order: 1
+image: "/images/work/whatahotel.jpg"
+imageAlt: "The WhatAHotel destinations page, opening on Asia and the Pacific over a photograph of the Tokyo skyline."
 tags: ["Technical SEO", "Hospitality", "Structured Data", "Content Operations", "AI Search"]
 contribution:
   - "Hotel-specific structured content"
